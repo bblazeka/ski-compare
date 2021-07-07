@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -7,13 +8,52 @@ import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 import styles from '../styles/Home.module.css';
-import Dashboard from '../components/Dashboard';
+import DetailDashboard from '../components/DetailDashboard';
+import Summary from '../components/Summary';
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      style={{ width: '90%'}}
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: any) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      backgroundColor: theme.palette.background.paper,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -26,6 +66,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Home({ data }: any) {
   const classes = useStyles();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -41,12 +86,21 @@ export default function Home({ data }: any) {
           <Typography variant="h6" className={classes.name}>
             Finapp
           </Typography>
+          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+            <Tab label="Überblick" {...a11yProps(0)} />
+            <Tab label="2020" {...a11yProps(1)} />
+          </Tabs>
           <IconButton color="inherit" aria-label="menu">
             <GitHubIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Dashboard data={data} />
+      <TabPanel value={value} index={0}>
+        <Summary data={data} />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <DetailDashboard data={data} />
+      </TabPanel>
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

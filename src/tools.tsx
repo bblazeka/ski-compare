@@ -1,14 +1,13 @@
 import _ from "lodash";
 
-export function generator() {
+export function generator(possibleGroups: any[]) {
   var values = [];
-  var possibleGroups = ['Lebensmittel', 'Wohnen', 'Verkehr'];
-  for (var i = 0; i < 50; i++) {
+  for (var i = 0; i < 70; i++) {
     var randomNumber = Math.floor(Math.random() * 12);
     values.push({
       "date": new Date(2020, randomNumber, i%30 + 1, 0, 0, 0, 0),
-      "group": possibleGroups[i%possibleGroups.length],
-      "amount": -1 * Math.random() * 500,
+      "group": possibleGroups[i%possibleGroups.length].name,
+      "amount": -1 * (Math.random() * 300 + 100),
       "description": "Test"
     })
   }
@@ -21,11 +20,12 @@ export function groupMonthlyAmountsBy(list: any[], keyGetter: any) {
     const key = keyGetter(item);
     var section = map.get(key);
     if (!section) {
-      map.set(key, { name: item.date.toLocaleString('default', { month: 'long' }), lebensmittel: 0, wohnen: 0, verkehr: 0 });
+      map.set(key, { name: item.date.toLocaleString('default', { month: 'long' }), lebensmittel: 0, wohnen: 0, verkehr: 0, internet: 0, transactions: [] });
       section = map.get(key);
     }
     let value = section[item.group.toLowerCase()] + item.amount * - 1;
     section[item.group.toLowerCase()] = _.round(value, 2);
+    section.transactions.push(item);
   });
   var elements = Array.from(map, ([key, value]) => { return Object.assign(value, { 'ind': key } )});
   return elements.sort((a, b) => { return a.ind - b.ind; });

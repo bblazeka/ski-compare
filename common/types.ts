@@ -9,3 +9,9 @@ export type Transaction = {
   amount: number,
   description: string
 }
+
+export type Goal = {
+  name: string
+  currentValue: number
+  expectedValue: number
+}

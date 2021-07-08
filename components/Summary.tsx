@@ -38,7 +38,7 @@ export default function DetailDashboard(props: any) {
         <SavingsAreaChart savings={data.savings} xAxisKey="year" unit="€" />
       </div>
       <h3>Ziele</h3>
-      <ProgressReport goals={[{name: 'Grundstück', currentValue: 28000, expectedValue: 50000 }, {name: 'Haus', currentValue: 28000, expectedValue: 200000 }, {name: 'Komplett', currentValue: 28000, expectedValue: 250000 }]} />
+      <ProgressReport goals={data.goals} />
     </div>
   );
 }

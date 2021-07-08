@@ -71,6 +71,7 @@ export default function Home({ data }: any) {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
+  
   return (
     <div className={styles.container}>
       <Head>

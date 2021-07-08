@@ -8,7 +8,7 @@ type DualAreaChartProps = {
 }
 
 export default function DualAreaChart({ data, unit = "€" }: DualAreaChartProps) {
-
+  
   return (
     <ResponsiveContainer width="100%" height="100%">
     <AreaChart width={730} height={250} data={data}
@@ -23,7 +23,7 @@ export default function DualAreaChart({ data, unit = "€" }: DualAreaChartProps
           <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
         </linearGradient>
       </defs>
-      <XAxis dataKey="month" />
+      <XAxis dataKey="index" />
       <YAxis unit={unit} />
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />

@@ -16,11 +16,19 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
 
-  const skiCategories = [{ name: 'easy', color: '#0088FE' }, { name: 'medium', color: '#FF8042' }, { name: 'hard', color: '#FFFFF' }];
+  const skiCategories = [{ name: 'easy', color: '#0088FE' }, { name: 'medium', color: '#D62728' }, { name: 'hard', color: '#FFFFF' }];
 
   var lat = 47.067936905855106;
   var long = 14.033547742358444;
   var weatherReq = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=${GetWeatherApi()}`);
+
+  var currentTime = (new Date()).getHours();
+  weatherReq.data.hourly.map((el: any, i: number) => {
+    var time = (currentTime + i)%25;
+    return Object.assign(el, {
+      index: time
+    })
+  });
 
   var skiResorts = [{
     name: 'Kreischberg',

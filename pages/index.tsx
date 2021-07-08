@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -8,11 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
 import styles from '../styles/Home.module.css';
-import DetailDashboard from '../components/DetailDashboard';
+import Dashboard from '../components/Dashboard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -58,7 +55,7 @@ export default function Home({ data }: any) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <DetailDashboard data={data} />
+      <Dashboard data={data} />
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

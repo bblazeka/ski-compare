@@ -28,8 +28,8 @@ export default function DualAreaChart({ data, unit = "€" }: DualAreaChartProps
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />
       <Legend />
-      <Area type="monotone" dataKey="income" name="Einkommen" unit={unit} stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-      <Area type="monotone" dataKey="expenses" name="Ausgaben" unit={unit} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+      <Area type="monotone" dataKey="temp" name="Ist" unit={unit} stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+      <Area type="monotone" dataKey="feels_like" name="Gefühlte" unit={unit} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
     </AreaChart>
   </ResponsiveContainer>
   );

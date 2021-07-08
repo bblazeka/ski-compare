@@ -1,30 +1,77 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { generator, groupMonthlyAmountsBy, generateSavings, generateIncome } from '../../src/tools';
 import _ from 'lodash';
 import { Category, Goal, Transaction } from '../../common/types';
+import axios from 'axios';
+import { scrap } from '../../src/scrapper';
+import { GetWeatherApi } from '../../src/comm';
 
 type Data = {
-  transactions: Transaction[]
-  summaries: any[]
-  savings: any[]
-  income: any[]
-  goals: Goal[]
-  categories: Category[]
+  skiCategories: Category[]
+  skiResorts: any[]
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const categories = [{ name: 'Lebensmittel', color: '#00C49F' }, { name: 'Wohnen', color: '#0088FE' }, { name: 'Verkehr', color: '#FFBB28' }, { name: 'Internet', color: '#FF8042' }];
-  let transactions = _.sortBy(generator(categories), ['date']);
-  var summaries = groupMonthlyAmountsBy(transactions, (t: Transaction) => t.date.getMonth());
-  var savings = generateSavings();
-  var income = generateIncome();
-  var goals = [{name: 'Grundstück', currentValue: 28000, expectedValue: 50000 }, {name: 'Haus', currentValue: 28000, expectedValue: 200000 }, {name: 'Komplett', currentValue: 28000, expectedValue: 250000 }];
-  income.map(i => {
-    return Object.assign(i, { expenses: _.round(Math.random() * i.income / 2 + 500, 2) });
-  })
-  res.status(200).json({ transactions, summaries, savings, income, categories, goals });
+
+  const skiCategories = [{ name: 'easy', color: '#0088FE' }, { name: 'medium', color: '#FF8042' }, { name: 'hard', color: '#FFFFF' }];
+
+  var lat = 47.067936905855106;
+  var long = 14.033547742358444;
+  var weatherReq = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=${GetWeatherApi()}`);
+
+  var skiResorts = [{
+    name: 'Kreischberg',
+    lat: 47.067936905855106,
+    long: 14.033547742358444,
+    key: 'kreischberg',
+    pistes: {
+      easy: 17,
+      medium: 16,
+      hard: 9,
+      rating: 4.4,
+      count: '1.087'
+    },
+    weather: weatherReq.data
+  },
+  {
+    name: 'Weinebene',
+    lat: 46.841560462820716,
+    long: 15.012484931548778,
+    key: 'weinebene',
+    pistes: {
+      easy: 8,
+      medium: 8,
+      hard: 2,
+      rating: 3.5,
+      count: '1.279'
+    },
+    weather: weatherReq.data
+  },
+  {
+    name: 'Klippitztörl',
+    lat: 46.95380931856665,
+    long: 14.685330031644156,
+    key: 'klippitztoerl',
+    pistes: {
+      easy: 18,
+      medium: 10,
+      hard: 0,
+      rating: 4,
+      count: '3.394'
+    },
+    weather: weatherReq.data
+  }];
+
+  // , 
+
+  /*var skiResorts = await Promise.all(skiResorts.map(async (el) => {
+    var obj = await scrap(el.key);
+    var weather = 
+    return Object.assign(el, { pistes: obj });
+  }));*/
+
+  res.status(200).json({ skiResorts, skiCategories });
 }

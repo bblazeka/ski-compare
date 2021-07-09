@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
+import axios from 'axios';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -76,8 +77,8 @@ export default function Home({ data }: any) {
 export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
   const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare-nmkcb6e2l-bblazeka.vercel.app/api/data';
-  const res = await fetch(server);
-  const data = await res.json()
+  const res = await axios.get(server);
+  const data = res.data;
   return {
     props: {
       data,

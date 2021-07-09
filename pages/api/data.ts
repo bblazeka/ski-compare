@@ -116,9 +116,9 @@ export default async function handler(
   }];
 
   skiResorts = await Promise.all(skiResorts.map(async (el) => {
-    //var obj = await scrap(el.key);
+    var obj = await scrap(el.key);
     //var weather = await GetWeatherApi(el.lat, el.long);
-    return Object.assign(el, { /*pistes: obj, weather*/ });
+    return Object.assign(el, { pistes: obj,/* weather*/ });
   }));
   console.log(skiResorts);
   res.status(200).json({ skiResorts, skiCategories });

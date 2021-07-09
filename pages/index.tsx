@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Home({ data }: any) {
+export default function Home({ data = null }: any) {
   const classes = useStyles();
-
   return (
     <div className={styles.container}>
       <Head>
@@ -57,7 +56,7 @@ export default function Home({ data }: any) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {data.skiResorts !== null && <Dashboard data={data} />}
+      {data && <Dashboard data={data} />}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -81,6 +80,7 @@ export async function getStaticProps() {
   const data = res.data;
   return {
     props: {
+      data
     },
   }
 }

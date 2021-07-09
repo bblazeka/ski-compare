@@ -73,10 +73,11 @@ export default function Home({ data = null }: any) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const dev = process.env.NODE_ENV !== 'production';
   const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare-nmkcb6e2l-bblazeka.vercel.app/api/data';
   const res = await axios.get(server);
+  console.log(res.data)
   return {
     props: {
       data: res.data

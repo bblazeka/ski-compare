@@ -120,6 +120,5 @@ export default async function handler(
     //var weather = await GetWeatherApi(el.lat, el.long);
     return Object.assign(el, { pistes: obj,/* weather*/ });
   }));
-  console.log(skiResorts);
   res.status(200).json({ skiResorts, skiCategories });
 }

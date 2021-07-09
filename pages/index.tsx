@@ -56,7 +56,7 @@ export default function Home({ data = null }: any) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {data && <Dashboard data={data} />}
+      {data && data.skiResorts && <Dashboard data={data} />}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -77,10 +77,9 @@ export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
   const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare-nmkcb6e2l-bblazeka.vercel.app/api/data';
   const res = await axios.get(server);
-  const data = res.data;
   return {
     props: {
-      data
+      data: res.data
     },
   }
 }

@@ -20,7 +20,7 @@ export default function Dashboard(props: any) {
   const classes = useStyles();
 
   const [activeSkiResort, setactiveSkiResort] = useState(0);
-
+  
   var currentSkiResort = data.skiResorts[activeSkiResort];
   var division = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
   return (

@@ -39,7 +39,10 @@ export default async function handler(
       medium: 16,
       hard: 9,
       rating: 4.4,
-      count: '1.087'
+      count: '1.087',
+      lifts: [],
+      snow: '-',
+      liftStatus: '3 von 15'
     },
     weather: weatherReq.data
   },
@@ -53,7 +56,10 @@ export default async function handler(
       medium: 8,
       hard: 2,
       rating: 3.5,
-      count: '1.279'
+      count: '1.279',
+      lifts: [],
+      snow: '-',
+      liftStatus: '3 von 15'
     },
     weather: weatherReq.data
   },
@@ -67,7 +73,10 @@ export default async function handler(
       medium: 10,
       hard: 0,
       rating: 4,
-      count: '3.394'
+      count: '3.394',
+      lifts: [],
+      snow: '-',
+      liftStatus: '3 von 15'
     },
     weather: weatherReq.data
   },
@@ -81,7 +90,10 @@ export default async function handler(
       medium: 16,
       hard: 3,
       rating: 4.8,
-      count: '751'
+      count: '751',
+      lifts: [],
+      snow: '-',
+      liftStatus: '3 von 15'
     },
     weather: weatherReq.data
   },
@@ -95,18 +107,19 @@ export default async function handler(
       medium: 24,
       hard: 3.5,
       rating: 3.9,
-      count: '1.975'
+      count: '1.975',
+      lifts: [],
+      snow: '-',
+      liftStatus: '3 von 15'
     },
     weather: weatherReq.data
   }];
 
-  // , 
-
   skiResorts = await Promise.all(skiResorts.map(async (el) => {
-    var obj = await scrap(el.key);
+    //var obj = await scrap(el.key);
     //var weather = await GetWeatherApi(el.lat, el.long);
-    return Object.assign(el, { pistes: obj/*, weather*/ });
+    return Object.assign(el, { /*pistes: obj, weather*/ });
   }));
-
+  console.log(skiResorts);
   res.status(200).json({ skiResorts, skiCategories });
 }

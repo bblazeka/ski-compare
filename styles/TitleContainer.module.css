@@ -1,0 +1,8 @@
+.statusbar {
+  margin-left: auto;
+  margin-top: auto;
+}
+
+.statusbar > * {
+  margin-left: 20px;
+}

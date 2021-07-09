@@ -4,7 +4,8 @@ import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, Responsive
 import _ from 'lodash';
 import CustomPieChart from './CustomPieChart';
 import DualAreaChart from './DualAreaChart';
-import ProgressReport from './ProgressReport';
+import ProgressIndicator from './ProgressIndicator';
+import TitleContainer from './TitleContainer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +26,7 @@ export default function Dashboard(props: any) {
   return (
     <div style={{ width: '90%' }}>
       <h3>Skigebiet vergleich</h3>
-      <div style={{ width: '100%', height: '40vh' }}>
+      <div style={{ width: '100%', height: '30vh' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data.skiResorts}
@@ -47,11 +48,11 @@ export default function Dashboard(props: any) {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <h2>{currentSkiResort.name}</h2>
+      <TitleContainer resort={currentSkiResort} />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
           <h3>Beliebt</h3>
-          <ProgressReport status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
+          <ProgressIndicator status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
           <CustomPieChart title="Pistenübersicht" division={division} categories={data.skiCategories} />

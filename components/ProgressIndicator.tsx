@@ -1,7 +1,7 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import styles from '../styles/ProgressReport.module.css';
+import styles from '../styles/ProgressIndicator.module.css';
 
 type Status = {
   progress: number
@@ -9,11 +9,11 @@ type Status = {
   name: string
 }
 
-type ProgressReportProps = {
+type ProgressIndicatorProps = {
   status: Status
 }
 
-export default function ProgressReport({ status }: ProgressReportProps) {
+export default function ProgressIndicator({ status }: ProgressIndicatorProps) {
   let progress = status.progress / 5 * 100;
   return (
     <div className={styles.container}>

@@ -25,13 +25,20 @@ export async function scrap(name: string) {
       skiLiftCounts.push({name: liftName, value: parseInt(liftCount)});
     }
   }
+
+  var reportInfos = dom.window.document.getElementsByClassName('report-info');
+  var snow = reportInfos[1].children[0].textContent?.trim();
+  var liftStatus = reportInfos[3].children[0].textContent?.trim().replace('\n',' ');
+
   return {
     'easy': easy,
     'medium': medium,
     'hard': hard,
     'rating': parseFloat(rating.replace(/,/, '.')),
     'count': count,
-    'lifts': skiLiftCounts
+    'lifts': skiLiftCounts,
+    'snow': snow,
+    'liftStatus': liftStatus
   };
 }
 

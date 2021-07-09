@@ -2,9 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash';
 import { Category, Goal, Transaction } from '../../common/types';
-import axios from 'axios';
 import { scrap } from '../../src/scrapper';
-import { GetWeatherApi } from '../../src/comm';
+import { GetWeatherApi } from '../../src/fetcher';
 
 type Data = {
   skiCategories: Category[]
@@ -20,7 +19,7 @@ export default async function handler(
 
   var lat = 47.067936905855106;
   var long = 14.033547742358444;
-  var weatherReq = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=${GetWeatherApi()}`);
+  var weatherReq = await GetWeatherApi(lat, long);
 
   var currentTime = (new Date()).getHours();
   weatherReq.data.hourly.map((el: any, i: number) => {
@@ -71,15 +70,43 @@ export default async function handler(
       count: '3.394'
     },
     weather: weatherReq.data
+  },
+  {
+    name: 'Lachtal', 
+    lat: 47.25481438588727,
+    long: 14.365432326564457,
+    key: 'lachtal',
+    pistes: {
+      easy: 7,
+      medium: 16,
+      hard: 3,
+      rating: 4.8,
+      count: '751'
+    },
+    weather: weatherReq.data
+  },
+  {
+    name: 'Turracher Höhe', 
+    lat: 46.91441997836233,
+    long: 13.87499425135462,
+    key: 'turracherhoehe',
+    pistes: {
+      easy: 14.5,
+      medium: 24,
+      hard: 3.5,
+      rating: 3.9,
+      count: '1.975'
+    },
+    weather: weatherReq.data
   }];
 
   // , 
 
-  /*var skiResorts = await Promise.all(skiResorts.map(async (el) => {
+  skiResorts = await Promise.all(skiResorts.map(async (el) => {
     var obj = await scrap(el.key);
-    var weather = 
+    //var weather = 
     return Object.assign(el, { pistes: obj });
-  }));*/
+  }));
 
   res.status(200).json({ skiResorts, skiCategories });
 }

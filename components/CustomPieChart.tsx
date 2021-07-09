@@ -3,10 +3,12 @@ import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recha
 import _ from 'lodash';
 
 type CustomPieChartProps = {
-  categories: any[],
+  categories?: any[],
   division: any[],
   title: string
 }
+
+const colors:any[] = ['#1F77B4','#FF851A','#2CA02C','#D62728','#9467BD','#8C564B','#E377C2'];
 
 export default function CustomPieChart(props: CustomPieChartProps) {
   const { categories, division, title } = props;
@@ -23,6 +25,16 @@ export default function CustomPieChart(props: CustomPieChartProps) {
       </text>
     );
   };
+
+  var getColor = (entry:any, index: number) => {
+    if (categories == null) {
+      return colors[index%colors.length];
+    }
+    else {
+      return categories.filter((cat: any) => cat.name.toLowerCase() === entry.name)[0].color;
+    }
+  };
+
   return (
     <div>
       <h4>{title}</h4>
@@ -41,7 +53,10 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               fill="#8884d8"
             >
               {division.map((entry: any, index: number) => (
-                <Cell key={`cell-${index}`} fill={categories.filter((cat: any) => cat.name.toLowerCase() === entry.name)[0].color} />
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill={getColor(entry, index)} 
+                />
               ))}
             </Pie>
             <Tooltip />

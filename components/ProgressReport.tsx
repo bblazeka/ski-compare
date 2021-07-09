@@ -31,7 +31,7 @@ export default function ProgressReport({ status }: ProgressReportProps) {
               alignItems: 'center',
               justifyContent: 'center',
               flexWrap: 'wrap',
-              padding: '30%'
+              padding: '35%'
             }}
           >
             <Typography variant="h4" component="div" color="textSecondary">{status.progress.toFixed(1)}</Typography>

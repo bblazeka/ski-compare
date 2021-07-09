@@ -18,16 +18,12 @@ export default function DetailDashboard(props: any) {
   const { data } = props;
   const classes = useStyles();
 
-  const [activeMonth, setActiveMonth] = useState(0);
+  const [activeSkiResort, setactiveSkiResort] = useState(0);
 
-  var currentSummary = data.skiResorts[activeMonth];
-  var division = Object.entries(currentSummary.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
+  var currentSkiResort = data.skiResorts[activeSkiResort];
+  var division = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
   return (
-    <div style={{ width: '100%' }}>
-      <h3>Actual and feels like</h3>
-      <div style={{ width: '100%', height: '40vh' }}>
-        <DualAreaChart data={data.skiResorts[0].weather.hourly} unit="°C" />
-      </div>
+    <div style={{ width: '90%' }}>
       <h3>Skigebiet vergleich</h3>
       <div style={{ width: '100%', height: '40vh' }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -46,15 +42,26 @@ export default function DetailDashboard(props: any) {
             <Tooltip />
             <Legend />
             {data.skiCategories.map((cat: any, i: number) => {
-              return (<Bar key={i} dataKey={"pistes."+cat.name.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setActiveMonth(index)} />);
+              return (<Bar key={i} dataKey={"pistes."+cat.name.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setactiveSkiResort(index)} />);
             })}
           </BarChart>
         </ResponsiveContainer>
       </div>
       <h3>Beliebt</h3>
-      <ProgressReport status={{'name': currentSummary.name, 'progress': currentSummary.pistes.rating, 'subtitle': currentSummary.pistes.count}} />
+      <ProgressReport status={{'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count}} />
       <div style={{ width: '100%', height: '30vh' }}>
-        <CustomPieChart title={"Pistenübersicht " + currentSummary.name} division={division} categories={data.skiCategories} />
+        <CustomPieChart title={"Pistenübersicht " + currentSkiResort.name} division={division} categories={data.skiCategories} />
+      </div>
+      <div style={{ width: '100%', height: '30vh' }}>
+        <CustomPieChart title={"Liftenübersicht " + currentSkiResort.name} division={currentSkiResort.pistes.lifts} />
+      </div>
+      <h3>Temperatur in 48 Stunden</h3>
+      <div style={{ width: '100%', height: '40vh' }}>
+        <DualAreaChart data={data.skiResorts[activeSkiResort].weather.hourly} unit="°C" primaryProperty="temp" secondaryProperty="feels_like" primaryPropName="Ist" secondaryPropName="Gefühlte" />
+      </div>
+      <h3>Wind in 48 Stunden</h3>
+      <div style={{ width: '100%', height: '40vh' }}>
+        <DualAreaChart data={data.skiResorts[activeSkiResort].weather.hourly} unit="kn" secondaryProperty="wind_speed" primaryProperty="wind_gust" secondaryPropName="Geschwindigkeit" primaryPropName="Windböe" />
       </div>
     </div>
   );

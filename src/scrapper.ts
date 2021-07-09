@@ -9,18 +9,29 @@ export async function scrap(name: string) {
 
   const list = dom.window.document.getElementsByClassName('dd-dense')[0];
   var children = list.children;
-  var easy = parseInt(children[1].textContent?.split(' ')[0] ?? '0');
-  var medium = parseInt(children[3].textContent?.split(' ')[0] ?? '0');
-  var hard = parseInt(children[5].textContent?.split(' ')[0] ?? '0');
+  var easy = parseFloat(children[1].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
+  var medium = parseFloat(children[3].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
+  var hard = parseFloat(children[5].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
 
   var rating = dom.window.document.getElementsByClassName('rating-number')[0].textContent ?? '0,0';
   var count = dom.window.document.getElementsByClassName('rating-count')[0].textContent;
+
+  var skiLiftCounts: any[] = [];
+  var skiLifts = dom.window.document.getElementsByClassName('lifte');
+  for (let i = 0; i < skiLifts.length; i++) {
+    var liftCount = skiLifts[i].children[0].textContent ?? '0';
+    var liftName = skiLifts[i].children[1].getAttribute('title');
+    if (liftCount != '0') {
+      skiLiftCounts.push({name: liftName, value: parseInt(liftCount)});
+    }
+  }
   return {
     'easy': easy,
     'medium': medium,
     'hard': hard,
     'rating': parseFloat(rating.replace(/,/, '.')),
-    'count': count
+    'count': count,
+    'lifts': skiLiftCounts
   };
 }
 

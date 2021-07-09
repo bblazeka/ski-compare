@@ -21,6 +21,9 @@ export default function Dashboard(props: any) {
 
   const [activeSkiResort, setactiveSkiResort] = useState(0);
 
+  if (data.skiResorts !== null || data.skiResorts.length === 0) {
+    return (<div>Loading...</div>);
+  } 
   var currentSkiResort = data.skiResorts[activeSkiResort];
   var division = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
   return (

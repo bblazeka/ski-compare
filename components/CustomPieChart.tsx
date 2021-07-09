@@ -37,7 +37,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
 
   return (
     <div>
-      <h4>{title}</h4>
+      <h3>{title}</h3>
       <div style={{ minWidth: '25vw', height: '25vh' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

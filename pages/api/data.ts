@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash';
-import { Category, Goal, Transaction } from '../../common/types';
+import { Category } from '../../common/types';
 import { scrap } from '../../src/scrapper';
 import { GetWeatherApi } from '../../src/fetcher';
 
@@ -104,8 +104,8 @@ export default async function handler(
 
   skiResorts = await Promise.all(skiResorts.map(async (el) => {
     var obj = await scrap(el.key);
-    //var weather = 
-    return Object.assign(el, { pistes: obj });
+    //var weather = await GetWeatherApi(el.lat, el.long);
+    return Object.assign(el, { pistes: obj/*, weather*/ });
   }));
 
   res.status(200).json({ skiResorts, skiCategories });

@@ -7,15 +7,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from '../styles/Home.module.css';
 import Dashboard from '../components/Dashboard';
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Home({ data }: any) {
   const classes = useStyles();
-  
+
   return (
     <div className={styles.container}>
       <Head>
@@ -51,7 +46,13 @@ export default function Home({ data }: any) {
             Ski-vergleich
           </Typography>
           <IconButton color="inherit" aria-label="menu">
-            <GitHubIcon />
+            <Link
+              color="inherit"
+              href="https://github.com/bblazeka/ski-compare"
+              target="_blank"
+              rel="noopener noreferrer">
+              <GitHubIcon />
+            </Link>
           </IconButton>
         </Toolbar>
       </AppBar>

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function DetailDashboard(props: any) {
+export default function Dashboard(props: any) {
   const { data } = props;
   const classes = useStyles();
 
@@ -42,18 +42,23 @@ export default function DetailDashboard(props: any) {
             <Tooltip />
             <Legend />
             {data.skiCategories.map((cat: any, i: number) => {
-              return (<Bar key={i} dataKey={"pistes."+cat.name.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setactiveSkiResort(index)} />);
+              return (<Bar key={i} dataKey={"pistes." + cat.name.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setactiveSkiResort(index)} />);
             })}
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <h3>Beliebt</h3>
-      <ProgressReport status={{'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count}} />
-      <div style={{ width: '100%', height: '30vh' }}>
-        <CustomPieChart title={"Pistenübersicht " + currentSkiResort.name} division={division} categories={data.skiCategories} />
-      </div>
-      <div style={{ width: '100%', height: '30vh' }}>
-        <CustomPieChart title={"Liftenübersicht " + currentSkiResort.name} division={currentSkiResort.pistes.lifts} />
+      <h2>{currentSkiResort.name}</h2>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
+          <h3>Beliebt</h3>
+          <ProgressReport status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
+        </div>
+        <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
+          <CustomPieChart title="Pistenübersicht" division={division} categories={data.skiCategories} />
+        </div>
+        <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
+          <CustomPieChart title="Liftenübersicht" division={currentSkiResort.pistes.lifts} />
+        </div>
       </div>
       <h3>Temperatur in 48 Stunden</h3>
       <div style={{ width: '100%', height: '40vh' }}>

@@ -74,8 +74,9 @@ export default function Home({ data }: any) {
 }
 
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const res = await fetch('http://localhost:3000/api/data')
+  const dev = process.env.NODE_ENV !== 'production';
+  const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare-nmkcb6e2l-bblazeka.vercel.app/api/data';
+  const res = await fetch(server);
   const data = await res.json()
   return {
     props: {

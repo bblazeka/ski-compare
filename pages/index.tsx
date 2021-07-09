@@ -57,7 +57,7 @@ export default function Home({ data }: any) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Dashboard data={data} />
+      {data.skiResorts !== null && <Dashboard data={data} />}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -81,7 +81,6 @@ export async function getStaticProps() {
   const data = res.data;
   return {
     props: {
-      data,
     },
   }
 }

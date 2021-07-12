@@ -77,7 +77,7 @@ export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
   const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare.vercel.app/api/data';
   const res = await axios.get(server);
-  console.log(res.data)
+  
   return {
     props: {
       data: res.data

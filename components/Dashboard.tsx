@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import _ from 'lodash';
 import CustomPieChart from './CustomPieChart';
 import DualAreaChart from './DualAreaChart';
 import ProgressIndicator from './ProgressIndicator';
 import TitleContainer from './TitleContainer';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    table: {
-      minWidth: 650,
-    }
-  }),
-);
+import TempRainChart from './TempRainChart';
 
 export default function Dashboard(props: any) {
   const { data } = props;
-  const classes = useStyles();
 
   const [activeSkiResort, setactiveSkiResort] = useState(0);
   
@@ -61,13 +52,13 @@ export default function Dashboard(props: any) {
           <CustomPieChart title="Liftenübersicht" division={currentSkiResort.pistes.lifts} />
         </div>
       </div>
-      <h3>Temperatur in 48 Stunden</h3>
+      <h3>Temperatur und Niederschlag in 48 Stunden</h3>
       <div style={{ width: '100%', height: '40vh' }}>
-        <DualAreaChart data={data.skiResorts[activeSkiResort].weather.hourly} unit="°C" primaryProperty="temp" secondaryProperty="feels_like" primaryPropName="Ist" secondaryPropName="Gefühlte" />
+        <TempRainChart data={currentSkiResort.weather.hourly} />
       </div>
       <h3>Wind in 48 Stunden</h3>
       <div style={{ width: '100%', height: '40vh' }}>
-        <DualAreaChart data={data.skiResorts[activeSkiResort].weather.hourly} unit="kn" secondaryProperty="wind_speed" primaryProperty="wind_gust" secondaryPropName="Geschwindigkeit" primaryPropName="Windböe" />
+        <DualAreaChart data={currentSkiResort.weather.hourly} unit="kn" secondaryProperty="wind_speed" primaryProperty="wind_gust" secondaryPropName="Geschwindigkeit" primaryPropName="Windböe" />
       </div>
     </div>
   );

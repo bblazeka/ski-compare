@@ -6,6 +6,8 @@ import DualAreaChart from './DualAreaChart';
 import ProgressIndicator from './ProgressIndicator';
 import TitleContainer from './TitleContainer';
 import TempRainChart from './TempRainChart';
+import LongTermWeather from './LongTermWeather';
+import ShortTermWeather from './ShortTermWeather';
 
 export default function Dashboard(props: any) {
   const { data } = props;
@@ -52,6 +54,10 @@ export default function Dashboard(props: any) {
           <CustomPieChart title="Liftenübersicht" division={currentSkiResort.pistes.lifts} />
         </div>
       </div>
+      <h3>Wettervorhersage für die nächsten 7 Tage</h3>
+      <LongTermWeather data={currentSkiResort.weather.daily} />
+      <h3>Wettervorhersage für die nächsten 48 Stunden</h3>
+      <ShortTermWeather data={currentSkiResort.weather.hourly} />
       <h3>Temperatur und Niederschlag in 48 Stunden</h3>
       <div style={{ width: '100%', height: '40vh' }}>
         <TempRainChart data={currentSkiResort.weather.hourly} />

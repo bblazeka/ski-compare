@@ -1,6 +1,5 @@
 import React from 'react';
 import { AreaChart, Area, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import _ from 'lodash';
 
 type DualAreaChartProps = {
   data: any[],

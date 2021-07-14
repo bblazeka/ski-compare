@@ -1,6 +1,5 @@
 import React from 'react';
 import { Bar, ComposedChart, Line, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import _ from 'lodash';
 
 type TempRainChartProps = {
   data: any[]

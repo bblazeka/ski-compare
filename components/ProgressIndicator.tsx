@@ -1,7 +1,7 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import styles from '../styles/ProgressIndicator.module.css';
+import styles from './ProgressIndicator.module.css';
 
 type Status = {
   progress: number
@@ -22,7 +22,7 @@ export default function ProgressIndicator({ title, status }: ProgressIndicatorPr
       <div className={styles.container}>
         <div>
           <div className={styles.progress} >
-            <CircularProgress size={150} variant="determinate" value={progress} />
+            <CircularProgress style={{margin: 'auto'}} size={150} variant="determinate" value={progress} />
             <div className={styles.circle} >
               <Typography variant="h4" component="div" color="textSecondary">{status.progress.toFixed(1)}</Typography>
               <Typography variant="subtitle1" component="div" color="textSecondary">

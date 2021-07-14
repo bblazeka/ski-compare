@@ -38,7 +38,7 @@ export async function scrap(name: string) {
     'count': count,
     'lifts': skiLiftCounts,
     'snow': snow,
-    'liftStatus': liftStatus
+    'liftStatus': liftStatus ? liftStatus : '-'
   };
 }
 

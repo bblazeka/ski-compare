@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* Not exactly required, but this is the PWA primary color */}
-          <meta name="theme-color" content={'#222266'} />
+          <meta name="theme-color" content='#1976D2' />
         </Head>
         <body>
           <Main />
@@ -54,7 +54,6 @@ MyDocument.getInitialProps = async (ctx) => {
     });
 
   const initialProps = await Document.getInitialProps(ctx);
-
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.

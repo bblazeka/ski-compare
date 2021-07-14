@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import styles from '../styles/WeatherBadge.module.css';
+import styles from './WeatherBadge.module.css';
 
 type WeatherIconProps = {
   icon: string,

@@ -7,7 +7,7 @@ type ShortTermWeatherProps = {
 
 export default function ShortTermWeather({ data }: ShortTermWeatherProps) {
   return (
-    <div style={{ backgroundColor: 'lightblue', borderRadius: '5px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', padding: '0 2vw 0 2vw' }}>
+    <div style={{ backgroundColor: 'skyblue', borderRadius: '5px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', padding: '0 2vw 0 2vw' }}>
       {data.map((el: any, i: number) => {
         var date = new Date(el.dt * 1000);
         return (

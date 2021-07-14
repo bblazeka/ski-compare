@@ -8,7 +8,7 @@ type LongTermWeatherProps = {
 export default function LongTermWeather({ data }: LongTermWeatherProps) {
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {data.map((el: any, index: number) => {
         var date = new Date(el.dt * 1000);
         var month = date.toLocaleString("de", { month: "short" }).toUpperCase();

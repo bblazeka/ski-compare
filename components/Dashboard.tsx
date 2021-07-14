@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import _ from 'lodash';
 import CustomPieChart from './CustomPieChart';
 import DualAreaChart from './DualAreaChart';
 import ProgressIndicator from './ProgressIndicator';
@@ -16,7 +15,8 @@ export default function Dashboard(props: any) {
   const [activeSkiResort, setactiveSkiResort] = useState(0);
   
   var currentSkiResort = data.skiResorts[activeSkiResort];
-  var trackDistribution = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
+  var slopeDistribution = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
+
   return (
     <div style={{ width: '90%' }}>
       <h3>Skigebiet vergleich</h3>
@@ -48,7 +48,7 @@ export default function Dashboard(props: any) {
           <ProgressIndicator title='Beliebt' status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Pistenübersicht" distribution={trackDistribution} categories={data.skiCategories} useManual={true} />
+          <CustomPieChart title="Pistenübersicht" distribution={slopeDistribution} categories={data.skiCategories} useManual={true} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
           <CustomPieChart title="Liftenübersicht" distribution={currentSkiResort.pistes.lifts} useManual={false} />

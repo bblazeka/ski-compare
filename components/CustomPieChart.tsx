@@ -1,17 +1,18 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-import _ from 'lodash';
+import { Category } from '../common/types';
 
 type CustomPieChartProps = {
-  categories?: any[],
-  division: any[],
-  title: string
+  categories?: Category[],
+  distribution: any[],
+  title: string,
+  useManual: boolean
 }
 
 const colors:any[] = ['#1F77B4','#FF851A','#2CA02C','#D62728','#9467BD','#8C564B','#E377C2'];
 
 export default function CustomPieChart(props: CustomPieChartProps) {
-  const { categories, division, title } = props;
+  const { categories, distribution, title, useManual } = props;
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: { cx: number, cy: number, midAngle: number, innerRadius: number, outerRadius: number, percent: number, index: number }) => {
@@ -31,20 +32,29 @@ export default function CustomPieChart(props: CustomPieChartProps) {
       return colors[index%colors.length];
     }
     else {
-      return categories.filter((cat: any) => cat.name.toLowerCase() === entry.name)[0].color;
+      return categories.filter((cat: any) => cat.key.toLowerCase() === entry.name)[0].color;
     }
   };
+  var groupDistribution = distribution.map((el)=> {
+    return Object.assign(el, {catName:  categories?.filter((cat: any) => cat.key.toLowerCase() === el.name)[0].name, id: el.name})
+  })
 
+  const renderColorfulLegendText = (value: string, entry: any) => {
+    const { color, payload } = entry;
+  
+    return <span style={{ color }}>{payload.catName}</span>;
+  };
   return (
     <div>
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       <div style={{ minWidth: '25vw', height: '25vh' }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               dataKey="value"
+              nameKey='catName'
               isAnimationActive={false}
-              data={division}
+              data={groupDistribution}
               labelLine={false}
               label={renderCustomizedLabel}
               cx="50%"
@@ -52,7 +62,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               outerRadius={80}
               fill="#8884d8"
             >
-              {division.map((entry: any, index: number) => (
+              {distribution.map((entry: any, index: number) => (
                 <Cell 
                   key={`cell-${index}`} 
                   fill={getColor(entry, index)} 
@@ -60,7 +70,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               ))}
             </Pie>
             <Tooltip />
-            <Legend layout="vertical" align='right' verticalAlign='middle' />
+            <Legend layout="vertical" align='right' verticalAlign='middle' formatter={useManual ? renderColorfulLegendText : undefined} />
           </PieChart>
         </ResponsiveContainer>
       </div>

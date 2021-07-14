@@ -8,6 +8,7 @@ import TitleContainer from './TitleContainer';
 import TempRainChart from './TempRainChart';
 import LongTermWeather from './LongTermWeather';
 import ShortTermWeather from './ShortTermWeather';
+import { Category } from '../common/types';
 
 export default function Dashboard(props: any) {
   const { data } = props;
@@ -15,7 +16,7 @@ export default function Dashboard(props: any) {
   const [activeSkiResort, setactiveSkiResort] = useState(0);
   
   var currentSkiResort = data.skiResorts[activeSkiResort];
-  var division = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
+  var trackDistribution = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
   return (
     <div style={{ width: '90%' }}>
       <h3>Skigebiet vergleich</h3>
@@ -35,8 +36,8 @@ export default function Dashboard(props: any) {
             <YAxis unit="km" />
             <Tooltip />
             <Legend />
-            {data.skiCategories.map((cat: any, i: number) => {
-              return (<Bar key={i} dataKey={"pistes." + cat.name.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setactiveSkiResort(index)} />);
+            {data.skiCategories.map((cat: Category, i: number) => {
+              return (<Bar key={i} dataKey={"pistes." + cat.key.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setactiveSkiResort(index)} />);
             })}
           </BarChart>
         </ResponsiveContainer>
@@ -44,14 +45,13 @@ export default function Dashboard(props: any) {
       <TitleContainer resort={currentSkiResort} />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <h3>Beliebt</h3>
-          <ProgressIndicator status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
+          <ProgressIndicator title='Beliebt' status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Pistenübersicht" division={division} categories={data.skiCategories} />
+          <CustomPieChart title="Pistenübersicht" distribution={trackDistribution} categories={data.skiCategories} useManual={true} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Liftenübersicht" division={currentSkiResort.pistes.lifts} />
+          <CustomPieChart title="Liftenübersicht" distribution={currentSkiResort.pistes.lifts} useManual={false} />
         </div>
       </div>
       <h3>Wettervorhersage für die nächsten 7 Tage</h3>

@@ -15,11 +15,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 5vh;
-  padding-bottom: 3vh;
+  margin: auto;
 }
 
 .progress {
   position: relative;
   display: inline-flex;
+  height: 25vh;
+  margin: auto;
 }

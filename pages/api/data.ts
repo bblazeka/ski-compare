@@ -15,17 +15,16 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
 
-  const skiCategories = [{ name: 'easy', color: '#0088FE' }, { name: 'medium', color: '#D62728' }, { name: 'hard', color: '#FFFFF' }];
+  const skiCategories = [{ key: 'easy', name: 'leicht', color: '#0088FE' }, { key: 'medium', name: 'mittel', color: '#D62728' }, { key: 'hard', name: 'schwer', color: '#FFFFF' }];
 
   var lat = 47.067936905855106;
   var long = 14.033547742358444;
   var weatherReq = await GetWeatherApi(lat, long);
 
-  var currentTime = (new Date()).getHours();
   weatherReq.data.hourly.map((el: any, i: number) => {
-    var time = (currentTime + i)%25;
+    var date = new Date(el.dt * 1000);
     return Object.assign(el, {
-      index: time
+      index: date.getHours()
     })
   });
 

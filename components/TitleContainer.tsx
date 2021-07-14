@@ -25,8 +25,9 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
   return (
     <div style={{ display: 'flex' }}>
       <span style={{ fontSize: 40, fontWeight: 700 }}>{resort.name}</span>
+      <span style={{ fontSize: 30, fontWeight: 400, margin: 'auto 10px 0 10px' }}>{resort.weather.current.weather[0].description}</span>
+      <WeatherBadge description={resort.weather.current.weather[0].description} icon={resort.weather.current.weather[0].icon} />
       <span style={{ fontSize: 30, fontWeight: 500, margin: 'auto 10px 0 10px' }}>{resort.weather.current.temp.toFixed(0)}°C</span>
-      <WeatherBadge description={resort.weather.current.description} icon={resort.weather.current.weather[0].icon}  />
       <div className={styles.statusbar}>
         <span style={{ fontSize: 20 }}>Gefühlte: {resort.weather.current.feels_like.toFixed(0)}°C</span>
         <span style={{ fontSize: 20 }}><Icon className="fas fa-wind" style={{ fontSize: 20 }} /> {resort.weather.current.wind_speed} kn</span>

@@ -14,8 +14,8 @@ export default function LongTermWeather({ data }: LongTermWeatherProps) {
         var month = date.toLocaleString("de", { month: "short" }).toUpperCase();
         return (<div style={{ display: 'flex', marginLeft: '20px' }} key={`ltweather-${index}`}>
           <div style={{marginRight: '2px'}}>
-            <span>{month}</span><br />
-            <span style={{margin: 'auto'}}>{date.getDate()}</span>
+            <div style={{textAlign:'center'}}>{month}</div>
+            <div style={{margin: 'auto', textAlign:'center'}}>{date.getDate()}</div>
           </div>
           <WeatherBadge description={el.weather[0].description} icon={el.weather[0].icon} />
           <div>

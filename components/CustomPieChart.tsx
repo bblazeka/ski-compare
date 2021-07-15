@@ -9,7 +9,7 @@ type CustomPieChartProps = {
   useManual: boolean
 }
 
-const colors:any[] = ['#1F77B4','#FF851A','#2CA02C','#D62728','#9467BD','#8C564B','#E377C2'];
+const colors: any[] = ['#1F77B4', '#FF851A', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2'];
 
 export default function CustomPieChart(props: CustomPieChartProps) {
   const { categories, distribution, title, useManual } = props;
@@ -27,21 +27,22 @@ export default function CustomPieChart(props: CustomPieChartProps) {
     );
   };
 
-  var getColor = (entry:any, index: number) => {
+  var getColor = (entry: any, index: number) => {
     if (categories == null) {
-      return colors[index%colors.length];
+      return colors[index % colors.length];
     }
     else {
-      return categories.filter((cat: any) => cat.key?.toLowerCase() === entry.name)[0].color;
+      return categories.filter((cat: Category) => cat.key?.toLowerCase() === entry.name)[0].color;
     }
   };
-  var groupDistribution = distribution.map((el)=> {
-    return Object.assign(el, {catName:  categories?.filter((cat: any) => cat.key?.toLowerCase() === el.name)[0].name, id: el.name})
+
+  var groupDistribution = distribution.map((el) => {
+    return Object.assign(el, { catName: categories?.find((cat: Category) => cat.key?.toLowerCase() === el.name)?.name, id: el.name })
   })
 
   const renderColorfulLegendText = (value: string, entry: any) => {
     const { color, payload } = entry;
-  
+
     return <span style={{ color }}>{payload.catName}</span>;
   };
   return (
@@ -63,14 +64,19 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               fill="#8884d8"
             >
               {distribution.map((entry: any, index: number) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={getColor(entry, index)} 
+                <Cell
+                  key={`cell-${index}`}
+                  fill={getColor(entry, index)}
                 />
               ))}
             </Pie>
             <Tooltip />
-            <Legend layout="vertical" align='right' verticalAlign='middle' formatter={useManual ? renderColorfulLegendText : undefined} />
+            <Legend
+              layout="vertical"
+              align='right'
+              verticalAlign='middle'
+              formatter={useManual ? renderColorfulLegendText : undefined}
+            />
           </PieChart>
         </ResponsiveContainer>
       </div>

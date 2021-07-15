@@ -29,8 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Home({ data = null }: any) {
+export default function Home({ data }: any) {
   const classes = useStyles();
+  console.log(data);
   return (
     <div className={styles.container}>
       <Head>
@@ -76,7 +77,6 @@ export default function Home({ data = null }: any) {
 
 export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
-  console.log(process.env);
   
   const server = dev ? 'http://localhost:3000/api/data' : `https://${process.env.VERCEL_URL ?? 'ski-compare.vercel.app'}/api/data`;
   const res = await axios.get(server);

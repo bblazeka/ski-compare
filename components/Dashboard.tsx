@@ -20,6 +20,7 @@ export default function Dashboard(props: DashboardProps) {
   const [activeSkiResort, setactiveSkiResort] = useState(0);
 
   var currentSkiResort = skiResorts[activeSkiResort];
+  console.log(currentSkiResort);
   var slopeDistribution = Object.entries(currentSkiResort.slopes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
 
   return (

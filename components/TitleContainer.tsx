@@ -32,8 +32,8 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
         <div className={styles.statusbar}>
           <span style={{ fontSize: 20 }}>Gefühlte: {resort.weather.current.feels_like.toFixed(0)}°C</span>
           <span style={{ fontSize: 20 }}><Icon className="fas fa-wind" style={{ fontSize: 20 }} /> {resort.weather.current.wind_speed} kn</span>
-          <span style={{ fontSize: 20 }}><Icon className="fas fa-snowflake" style={{ fontSize: 20 }} /> {resort.pistes.snow}</span>
-          <span style={{ fontSize: 20 }}><Icon className="fas fa-skiing" style={{ fontSize: 20 }} /> {resort.pistes.liftStatus}</span>
+          <span style={{ fontSize: 20 }}><Icon className="fas fa-snowflake" style={{ fontSize: 20 }} /> {resort.slopes.snow}</span>
+          <span style={{ fontSize: 20 }}><Icon className="fas fa-skiing" style={{ fontSize: 20 }} /> {resort.slopes.liftStatus}</span>
           <Link style={{ marginLeft: '20px'}} href={`https://www.bergfex.at/${resort.key}`}
             target="_blank"
             rel="noopener noreferrer">

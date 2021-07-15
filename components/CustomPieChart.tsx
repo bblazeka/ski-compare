@@ -2,9 +2,9 @@ import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import { Category } from '../common/types';
 import styles from './CustomPieChart.module.css';
+import categories from '../common/categories.json';
 
 type CustomPieChartProps = {
-  categories?: Category[],
   distribution: any[],
   title: string,
   manual: boolean
@@ -13,7 +13,7 @@ type CustomPieChartProps = {
 const colors: any[] = ['#1F77B4', '#FF851A', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2'];
 
 export default function CustomPieChart(props: CustomPieChartProps) {
-  const { categories, distribution, title, manual } = props;
+  const { distribution, title, manual } = props;
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: { cx: number, cy: number, midAngle: number, innerRadius: number, outerRadius: number, percent: number, index: number }) => {
@@ -29,11 +29,11 @@ export default function CustomPieChart(props: CustomPieChartProps) {
   };
 
   var getColor = (entry: any, index: number) => {
-    if (categories == null) {
-      return colors[index % colors.length];
+    if (manual) {
+      return categories.find((cat: Category) => cat.key?.toLowerCase() === entry.name)?.color;
     }
     else {
-      return categories.find((cat: Category) => cat.key?.toLowerCase() === entry.name)?.color;
+      return colors[index % colors.length];
     }
   };
 

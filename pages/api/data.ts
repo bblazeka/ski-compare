@@ -1,13 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash';
-import { Category } from '../../common/types';
+import { SkiResort } from '../../common/types';
 import { scrap } from '../../src/scrapper';
 import { GetWeatherApi } from '../../src/fetcher';
 
 type Data = {
-  skiCategories: Category[]
-  skiResorts: any[]
+  skiResorts: SkiResort[]
 }
 
 export default async function handler(
@@ -16,8 +15,6 @@ export default async function handler(
 ) {
   
   const dev = process.env.NODE_ENV !== 'production';
-
-  const skiCategories = [{ key: 'easy', name: 'leicht', color: '#0088FE' }, { key: 'medium', name: 'mittel', color: '#D62728' }, { key: 'hard', name: 'schwer', color: '#FFFFF' }];
 
   var lat = 47.067936905855106;
   var long = 14.033547742358444;
@@ -35,7 +32,7 @@ export default async function handler(
     lat: 47.067936905855106,
     long: 14.033547742358444,
     key: 'kreischberg',
-    pistes: {
+    slopes: {
       easy: 17,
       medium: 16,
       hard: 9,
@@ -49,14 +46,15 @@ export default async function handler(
       ],
       snow: '-',
       liftStatus: '3 von 15'
-    }
+    },
+    weather: {}
   },
   {
     name: 'Weinebene',
     lat: 46.841560462820716,
     long: 15.012484931548778,
     key: 'weinebene',
-    pistes: {
+    slopes: {
       easy: 8,
       medium: 8,
       hard: 2,
@@ -65,14 +63,15 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    }
+    },
+    weather: {}
   },
   {
     name: 'Klippitztörl',
     lat: 46.95380931856665,
     long: 14.685330031644156,
     key: 'klippitztoerl',
-    pistes: {
+    slopes: {
       easy: 18,
       medium: 10,
       hard: 0,
@@ -81,14 +80,15 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    }
+    },
+    weather: {}
   },
   {
     name: 'Lachtal', 
     lat: 47.25481438588727,
     long: 14.365432326564457,
     key: 'lachtal',
-    pistes: {
+    slopes: {
       easy: 7,
       medium: 16,
       hard: 3,
@@ -97,14 +97,15 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    }
+    },
+    weather: {}
   },
   {
     name: 'Turracher Höhe', 
     lat: 46.91441997836233,
     long: 13.87499425135462,
     key: 'turracherhoehe',
-    pistes: {
+    slopes: {
       easy: 14.5,
       medium: 24,
       hard: 3.5,
@@ -118,7 +119,8 @@ export default async function handler(
       ],
       snow: '-',
       liftStatus: '3 von 15'
-    }
+    },
+    weather: {}
   }];
 
   skiResorts = await Promise.all(skiResorts.map(async (el) => {
@@ -128,7 +130,7 @@ export default async function handler(
       });
     }
     else {
-      var pistes = await scrap(el.key);
+      var slopes = await scrap(el.key);
       var weather = (await GetWeatherApi(el.lat, el.long)).data;
       weather.hourly.map((el: any) => {
         var date = new Date(el.dt * 1000);
@@ -137,10 +139,10 @@ export default async function handler(
         })
       });
       return Object.assign(el, { 
-        pistes, 
+        slopes, 
         weather  
       });
     }
   }));
-  res.status(200).json({ skiResorts, skiCategories });
+  res.status(200).json({ skiResorts });
 }

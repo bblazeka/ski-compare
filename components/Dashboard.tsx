@@ -7,15 +7,20 @@ import TitleContainer from './TitleContainer';
 import TempRainChart from './TempRainChart';
 import LongTermWeather from './LongTermWeather';
 import ShortTermWeather from './ShortTermWeather';
-import { Category } from '../common/types';
+import { Category, SkiResort } from '../common/types';
+import skiCategories from '../common/categories.json';
 
-export default function Dashboard(props: any) {
-  const { data } = props;
+type DashboardProps = {
+  skiResorts: SkiResort[]
+}
+
+export default function Dashboard(props: DashboardProps) {
+  const { skiResorts } = props;
 
   const [activeSkiResort, setactiveSkiResort] = useState(0);
 
-  var currentSkiResort = data.skiResorts[activeSkiResort];
-  var slopeDistribution = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
+  var currentSkiResort = skiResorts[activeSkiResort];
+  var slopeDistribution = Object.entries(currentSkiResort.slopes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
 
   return (
     <div style={{ width: '90%' }}>
@@ -23,7 +28,7 @@ export default function Dashboard(props: any) {
       <div style={{ width: '100%', height: '30vh' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={data.skiResorts}
+            data={skiResorts}
             margin={{
               top: 20,
               right: 30,
@@ -36,10 +41,10 @@ export default function Dashboard(props: any) {
             <YAxis unit="km" />
             <Tooltip />
             <Legend />
-            {data.skiCategories.map((cat: Category, i: number) => {
+            {skiCategories.map((cat: Category, i: number) => {
               return (<Bar
                 key={i}
-                dataKey={`pistes.${cat.key?.toLowerCase()}`}
+                dataKey={`slopes.${cat.key?.toLowerCase()}`}
                 name={cat.name}
                 unit="km"
                 stackId="a"
@@ -53,13 +58,13 @@ export default function Dashboard(props: any) {
       <TitleContainer resort={currentSkiResort} />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <ProgressIndicator title='Beliebt' status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
+          <ProgressIndicator title='Beliebt' status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.slopes.rating, 'subtitle': currentSkiResort.slopes.count }} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Pistenübersicht" distribution={slopeDistribution} categories={data.skiCategories} manual={true} />
+          <CustomPieChart title="Pistenübersicht" distribution={slopeDistribution} manual={true} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Liftenübersicht" distribution={currentSkiResort.pistes.lifts} manual={false} />
+          <CustomPieChart title="Liftenübersicht" distribution={currentSkiResort.slopes.lifts} manual={false} />
         </div>
       </div>
       <h3>Wettervorhersage für die nächsten 7 Tage</h3>

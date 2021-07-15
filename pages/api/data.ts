@@ -41,7 +41,12 @@ export default async function handler(
       hard: 9,
       rating: 4.4,
       count: '1.087',
-      lifts: [],
+      lifts: [
+        { name: 'Schlepplifte', value: 5 },
+        { name: 'Sessellifte', value: 4 },
+        { name: 'Kabinenbahn', value: 3 },
+        { name: 'Zauberteppiche', value: 1 }
+      ],
       snow: '-',
       liftStatus: '3 von 15'
     }
@@ -105,17 +110,31 @@ export default async function handler(
       hard: 3.5,
       rating: 3.9,
       count: '1.975',
-      lifts: [],
+      lifts: [
+        { name: 'Schlepplifte', value: 6 },
+        { name: 'Sessellifte', value: 2 },
+        { name: 'Seillifte', value: 1 },
+        { name: 'Zauberteppiche', value: 1 }
+      ],
       snow: '-',
       liftStatus: '3 von 15'
     }
   }];
 
   skiResorts = await Promise.all(skiResorts.map(async (el) => {
-    return Object.assign(el, { 
-      pistes: dev ? el.pistes : await scrap(el.key), 
-      weather: dev ? weatherReq.data : await GetWeatherApi(el.lat, el.long) 
-    });
+    if (dev) {
+      return Object.assign(el, {
+        weather: weatherReq.data
+      });
+    }
+    else {
+      var pistes = await scrap(el.key);
+      var weather = (await GetWeatherApi(el.lat, el.long)).data;
+      return Object.assign(el, { 
+        pistes, 
+        weather  
+      });
+    }
   }));
   res.status(200).json({ skiResorts, skiCategories });
 }

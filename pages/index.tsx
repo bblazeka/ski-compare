@@ -76,6 +76,8 @@ export default function Home({ data = null }: any) {
 
 export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
+  console.log(process.env);
+  
   const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare.vercel.app/api/data';
   const res = await axios.get(server);
   

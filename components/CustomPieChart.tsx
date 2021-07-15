@@ -32,11 +32,11 @@ export default function CustomPieChart(props: CustomPieChartProps) {
       return colors[index%colors.length];
     }
     else {
-      return categories.filter((cat: any) => cat.key.toLowerCase() === entry.name)[0].color;
+      return categories.filter((cat: any) => cat.key?.toLowerCase() === entry.name)[0].color;
     }
   };
   var groupDistribution = distribution.map((el)=> {
-    return Object.assign(el, {catName:  categories?.filter((cat: any) => cat.key.toLowerCase() === el.name)[0].name, id: el.name})
+    return Object.assign(el, {catName:  categories?.filter((cat: any) => cat.key?.toLowerCase() === el.name)[0].name, id: el.name})
   })
 
   const renderColorfulLegendText = (value: string, entry: any) => {

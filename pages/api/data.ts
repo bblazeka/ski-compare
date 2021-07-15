@@ -14,6 +14,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  
+  const dev = process.env.NODE_ENV !== 'production';
 
   const skiCategories = [{ key: 'easy', name: 'leicht', color: '#0088FE' }, { key: 'medium', name: 'mittel', color: '#D62728' }, { key: 'hard', name: 'schwer', color: '#FFFFF' }];
 
@@ -42,8 +44,7 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    },
-    weather: weatherReq.data
+    }
   },
   {
     name: 'Weinebene',
@@ -59,8 +60,7 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    },
-    weather: weatherReq.data
+    }
   },
   {
     name: 'Klippitztörl',
@@ -76,8 +76,7 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    },
-    weather: weatherReq.data
+    }
   },
   {
     name: 'Lachtal', 
@@ -93,8 +92,7 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    },
-    weather: weatherReq.data
+    }
   },
   {
     name: 'Turracher Höhe', 
@@ -110,14 +108,14 @@ export default async function handler(
       lifts: [],
       snow: '-',
       liftStatus: '3 von 15'
-    },
-    weather: weatherReq.data
+    }
   }];
 
   skiResorts = await Promise.all(skiResorts.map(async (el) => {
-    var obj = await scrap(el.key);
-    //var weather = await GetWeatherApi(el.lat, el.long);
-    return Object.assign(el, { pistes: obj,/* weather*/ });
+    return Object.assign(el, { 
+      pistes: dev ? el.pistes : await scrap(el.key), 
+      weather: dev ? weatherReq.data : await GetWeatherApi(el.lat, el.long) 
+    });
   }));
   res.status(200).json({ skiResorts, skiCategories });
 }

@@ -56,10 +56,10 @@ export default function Dashboard(props: any) {
           <ProgressIndicator title='Beliebt' status={{ 'name': currentSkiResort.name, 'progress': currentSkiResort.pistes.rating, 'subtitle': currentSkiResort.pistes.count }} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Pistenübersicht" distribution={slopeDistribution} categories={data.skiCategories} useManual={true} />
+          <CustomPieChart title="Pistenübersicht" distribution={slopeDistribution} categories={data.skiCategories} manual={true} />
         </div>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>
-          <CustomPieChart title="Liftenübersicht" distribution={currentSkiResort.pistes.lifts} useManual={false} />
+          <CustomPieChart title="Liftenübersicht" distribution={currentSkiResort.pistes.lifts} manual={false} />
         </div>
       </div>
       <h3>Wettervorhersage für die nächsten 7 Tage</h3>

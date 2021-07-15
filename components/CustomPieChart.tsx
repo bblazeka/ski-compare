@@ -1,18 +1,19 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import { Category } from '../common/types';
+import styles from './CustomPieChart.module.css';
 
 type CustomPieChartProps = {
   categories?: Category[],
   distribution: any[],
   title: string,
-  useManual: boolean
+  manual: boolean
 }
 
 const colors: any[] = ['#1F77B4', '#FF851A', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2'];
 
 export default function CustomPieChart(props: CustomPieChartProps) {
-  const { categories, distribution, title, useManual } = props;
+  const { categories, distribution, title, manual } = props;
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: { cx: number, cy: number, midAngle: number, innerRadius: number, outerRadius: number, percent: number, index: number }) => {
@@ -32,7 +33,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
       return colors[index % colors.length];
     }
     else {
-      return categories.filter((cat: Category) => cat.key?.toLowerCase() === entry.name)[0].color;
+      return categories.find((cat: Category) => cat.key?.toLowerCase() === entry.name)?.color;
     }
   };
 
@@ -48,7 +49,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
   return (
     <div>
       {title && <h3>{title}</h3>}
-      <div style={{ minWidth: '25vw', height: '25vh' }}>
+      <div className={styles.container}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -75,7 +76,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               layout="vertical"
               align='right'
               verticalAlign='middle'
-              formatter={useManual ? renderColorfulLegendText : undefined}
+              formatter={manual ? renderColorfulLegendText : undefined}
             />
           </PieChart>
         </ResponsiveContainer>

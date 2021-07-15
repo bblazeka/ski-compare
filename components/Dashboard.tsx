@@ -13,7 +13,7 @@ export default function Dashboard(props: any) {
   const { data } = props;
 
   const [activeSkiResort, setactiveSkiResort] = useState(0);
-  
+
   var currentSkiResort = data.skiResorts[activeSkiResort];
   var slopeDistribution = Object.entries(currentSkiResort.pistes).map(([key, value]) => { return { name: key, value } }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
 
@@ -37,7 +37,15 @@ export default function Dashboard(props: any) {
             <Tooltip />
             <Legend />
             {data.skiCategories.map((cat: Category, i: number) => {
-              return (<Bar key={i} dataKey={"pistes." + cat.key.toLowerCase()} name={cat.name} unit="km" stackId="a" fill={cat.color} onClick={(data, index) => setactiveSkiResort(index)} />);
+              return (<Bar
+                key={i}
+                dataKey={`pistes.${cat.key?.toLowerCase()}`}
+                name={cat.name}
+                unit="km"
+                stackId="a"
+                fill={cat.color}
+                onClick={(data, index) => setactiveSkiResort(index)}
+              />);
             })}
           </BarChart>
         </ResponsiveContainer>

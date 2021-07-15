@@ -130,6 +130,12 @@ export default async function handler(
     else {
       var pistes = await scrap(el.key);
       var weather = (await GetWeatherApi(el.lat, el.long)).data;
+      weather.hourly.map((el: any) => {
+        var date = new Date(el.dt * 1000);
+        return Object.assign(el, {
+          index: date.getHours()
+        })
+      });
       return Object.assign(el, { 
         pistes, 
         weather  

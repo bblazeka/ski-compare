@@ -49,6 +49,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
   return (
     <div>
       {title && <h3>{title}</h3>}
+      {distribution.length === 0 && <div>Nicht verfügbar.</div>}
       <div className={styles.container}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

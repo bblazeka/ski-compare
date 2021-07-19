@@ -1,17 +1,17 @@
 [
   {
     "key": "easy",
-    "name": "leicht",
+    "name": "Leicht",
     "color": "#0088FE"
   },
   {
     "key": "medium",
-    "name": "mittel",
+    "name": "Mittel",
     "color": "#D62728"
   },
   {
     "key": "hard",
-    "name": "schwer",
+    "name": "Schwer",
     "color": "#FFFFF"
   }
 ]

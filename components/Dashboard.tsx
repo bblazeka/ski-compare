@@ -77,7 +77,14 @@ export default function Dashboard(props: DashboardProps) {
       </div>
       <h3>Wind in 48 Stunden</h3>
       <div style={{ width: '100%', height: '40vh' }}>
-        <DualAreaChart data={currentSkiResort.weather.hourly} unit="kn" secondaryProperty="wind_speed" primaryProperty="wind_gust" secondaryPropName="Geschwindigkeit" primaryPropName="Windböe" />
+        <DualAreaChart
+          data={currentSkiResort.weather.hourly}
+          unit="m/s"
+          primaryProperty="wind_speed"
+          secondaryProperty="wind_gust"
+          primaryPropName="Geschwindigkeit"
+          secondaryPropName="Windböe"
+        />
       </div>
     </div>
   );

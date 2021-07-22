@@ -47,7 +47,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
     return <span style={{ color }}>{payload.catName}</span>;
   };
   return (
-    <div>
+    <>
       {title && <h3>{title}</h3>}
       {distribution.length === 0 && <div>Nicht verfügbar.</div>}
       <div className={styles.container}>
@@ -82,6 +82,6 @@ export default function CustomPieChart(props: CustomPieChartProps) {
           </PieChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
   );
 }

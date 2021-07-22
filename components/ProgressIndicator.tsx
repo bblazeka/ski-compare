@@ -17,10 +17,10 @@ type ProgressIndicatorProps = {
 export default function ProgressIndicator({ title, status }: ProgressIndicatorProps) {
   let progress = status.progress / 5 * 100;
   return (
-    <div>
+    <>
       {title && <h3>{title}</h3>}
       <div className={styles.container}>
-        <div>
+        <>
           <div className={styles.progress} >
             <CircularProgress style={{margin: 'auto'}} size={150} variant="determinate" value={progress} />
             <div className={styles.circle} >
@@ -30,8 +30,8 @@ export default function ProgressIndicator({ title, status }: ProgressIndicatorPr
               </Typography>
             </div>
           </div>
-        </div>
+        </>
       </div>
-    </div>
+    </>
   );
 }

@@ -23,7 +23,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
     };
   }, []);
   return (
-    <div>
+    <>
       <h1>{resort.name}</h1>
       <div style={{ display: 'flex' }}>
         <span style={{ fontSize: 25, fontWeight: 400, margin: 'auto 10px 0 0px' }}>{resort.weather.current.weather[0].description}</span>
@@ -41,6 +41,6 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
           </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }

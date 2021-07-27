@@ -18,7 +18,7 @@ export default function ProgressIndicator({ title, status }: ProgressIndicatorPr
   let progress = status.progress / 5 * 100;
   return (
     <>
-      {title && <h3>{title}</h3>}
+      {title && <h3 role='title'>{title}</h3>}
       <div className={styles.container}>
         <>
           <div className={styles.progress} >

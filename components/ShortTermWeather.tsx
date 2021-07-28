@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import styles from './ShortTermWeather.module.css';
 
 type ShortTermWeatherProps = {
   data: any[]
@@ -7,15 +8,15 @@ type ShortTermWeatherProps = {
 
 export default function ShortTermWeather({ data }: ShortTermWeatherProps) {
   return (
-    <div style={{ backgroundColor: 'skyblue', borderRadius: '5px', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', padding: '0 2vw 0 2vw' }}>
+    <div className={styles.container}>
       {data.map((el: any, i: number) => {
         var date = new Date(el.dt * 1000);
         return (
           <div key={i}>
             <Image width={30} height={30} alt={el.weather[0].description} src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`} />
             <div>
-              <div style={{ textAlign: 'center' }}>{date.toLocaleString("de", { weekday: "short" }).toUpperCase()}</div>
-              <div style={{ textAlign: 'center', margin: 'auto', fontSize: '0.75em' }}>{date.getHours()}h</div>
+              <div className={styles.day}>{date.toLocaleString("de", { weekday: "short" }).toUpperCase()}</div>
+              <div className={styles.time}>{date.getHours()}h</div>
             </div>
           </div>);
       })}

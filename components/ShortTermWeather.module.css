@@ -1,0 +1,18 @@
+.container {
+  background-color: skyblue;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 2vw 0 2vw;
+}
+
+.day {
+  text-align: center;
+}
+
+.time {
+  text-align: center;
+  margin: auto;
+  font-size: 0.75em;
+}

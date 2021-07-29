@@ -7,8 +7,8 @@ import TitleContainer from './TitleContainer';
 import TempRainChart from './TempRainChart';
 import LongTermWeather from './LongTermWeather';
 import ShortTermWeather from './ShortTermWeather';
-import { Category, SkiResort } from '../common/types';
-import skiCategories from '../common/categories.json';
+import { Category, SkiResort } from '../utils/types';
+import skiCategories from '../utils/categories.json';
 
 type DashboardProps = {
   skiResorts: SkiResort[]

@@ -1,8 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-import { Category } from '../common/types';
+import { Category } from '../utils/types';
 import styles from './CustomPieChart.module.css';
-import categories from '../common/categories.json';
+import categories from '../utils/categories.json';
 
 type CustomPieChartProps = {
   distribution: any[],

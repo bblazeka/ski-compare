@@ -1,6 +1,6 @@
 import React from 'react';
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from 'next/head';
+import Image from 'next/image';
 import axios from 'axios';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -71,19 +71,19 @@ export default function Home({ data }: any) {
         </a>
       </footer>
     </div>
-  )
+  );
 }
 
 export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
   
   // to dynamically determine the backend location use process.env.VERCEL_URL
-  const server = dev ? 'http://localhost:3000/api/data' : `https://ski-compare.vercel.app/api/data`;
+  const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare.vercel.app/api/data';
   const res = await axios.get(server);
   
   return {
     props: {
       data: res.data
     },
-  }
+  };
 }

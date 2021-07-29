@@ -12,7 +12,7 @@ type DualAreaChartProps = {
   secondaryPropColor?: string
 }
 
-export default function DualAreaChart({ data, unit, primaryProperty, secondaryProperty, primaryPropName, secondaryPropName, primaryPropColor = "#82ca9d", secondaryPropColor = "#8884d8" }: DualAreaChartProps) {
+export default function DualAreaChart({ data, unit, primaryProperty, secondaryProperty, primaryPropName, secondaryPropName, primaryPropColor = '#82ca9d', secondaryPropColor = '#8884d8' }: DualAreaChartProps) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart width={730} height={250} data={data}

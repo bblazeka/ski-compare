@@ -1,8 +1,8 @@
-import React from "react";
-import { render } from "../testUtils";
-import ShortTermWeather from "./ShortTermWeather"
+import React from 'react';
+import { render } from '../testUtils';
+import ShortTermWeather from './ShortTermWeather';
 
-describe("ShortTermWeather", () => {
+describe('ShortTermWeather', () => {
 
   it('displays value, title and subtitle', () => {
     var data = [{
@@ -83,5 +83,5 @@ describe("ShortTermWeather", () => {
       var date = new Date(d.dt * 1000);
       expect(getByText(`${date.getHours()}h`)).toBeInTheDocument();
     });
-  })
+  });
 });

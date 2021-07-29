@@ -1,8 +1,8 @@
-import React from "react";
-import { render } from "../testUtils";
-import ProgressIndicator from "./ProgressIndicator"
+import React from 'react';
+import { render } from '../testUtils';
+import ProgressIndicator from './ProgressIndicator';
 
-describe("ProgressIndicator", () => {
+describe('ProgressIndicator', () => {
 
   it('displays value, title and subtitle', () => {
     const subtitle = 'Sub';
@@ -13,5 +13,5 @@ describe("ProgressIndicator", () => {
     expect(getByText(subtitle)).toBeInTheDocument();
     expect(getByText(progress.toFixed(1))).toBeInTheDocument();
     expect(getByRole('title')).toHaveTextContent(title);
-  })
+  });
 });

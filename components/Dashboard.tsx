@@ -23,7 +23,7 @@ export default function Dashboard(props: DashboardProps) {
   var slopeDistribution = Object.entries(currentSkiResort.slopes).map(([key, value]) => { return { name: key, value }; }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
 
   return (
-    <div style={{ width: '90%' }}>
+    <div style={{ width: '85%' }}>
       <h3>Skigebiet vergleich</h3>
       <div style={{ width: '100%', height: '30vh' }}>
         <ResponsiveContainer width="100%" height="100%">

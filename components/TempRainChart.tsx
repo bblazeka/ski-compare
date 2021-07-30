@@ -8,10 +8,12 @@ type TempRainChartProps = {
 export default function TempRainChart({ data }: TempRainChartProps) {
   return (
     <ResponsiveContainer width="100%" height="100%">
-    <ComposedChart width={730} height={250} data={data}>
+    <ComposedChart 
+      data={data}
+      margin={{ top: 10, right: -10, left: -10, bottom: 0 }}>
       <XAxis dataKey="index" unit="h" />
-      <YAxis yAxisId="left" type="number" dataKey="temp" unit="°C" />
-      <YAxis yAxisId="right" type="number" orientation="right" domain={['auto', 8]} />
+      <YAxis yAxisId="left" type="number" dataKey="temp" unit='°C' />
+      <YAxis yAxisId="right" type="number" orientation="right" domain={['auto', 8]} unit='mm' />
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />
       <Legend />

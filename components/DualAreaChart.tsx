@@ -15,8 +15,9 @@ type DualAreaChartProps = {
 export default function DualAreaChart({ data, unit, primaryProperty, secondaryProperty, primaryPropName, secondaryPropName, primaryPropColor = '#82ca9d', secondaryPropColor = '#8884d8' }: DualAreaChartProps) {
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <AreaChart width={730} height={250} data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+      <AreaChart
+        data={data}
+        margin={{ top: 10, right: 60, left: 10, bottom: 0 }}>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={primaryPropColor} stopOpacity={0.8} />
@@ -27,12 +28,8 @@ export default function DualAreaChart({ data, unit, primaryProperty, secondaryPr
             <stop offset="95%" stopColor={secondaryPropColor} stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis dataKey='index'>
-          <Label value='Zeit' offset={0} position='insideBottom' />
-        </XAxis>
-        <YAxis unit={unit}>
-          <Label angle={-90} value="Geschwindigkeit" position='insideLeft' />
-        </YAxis>
+        <XAxis dataKey='index' unit='h' />
+        <YAxis unit={unit} />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip />
         <Legend />

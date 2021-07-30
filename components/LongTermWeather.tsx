@@ -12,7 +12,7 @@ export default function LongTermWeather({ data }: LongTermWeatherProps) {
       {data.map((el: any, index: number) => {
         var date = new Date(el.dt * 1000);
         var month = date.toLocaleString('de', { month: 'short' }).toUpperCase();
-        return (<div style={{ display: 'flex', marginLeft: '20px' }} key={`ltweather-${index}`}>
+        return (<div style={{ display: 'flex', marginLeft: '20px', marginBottom: '10px' }} key={`ltweather-${index}`}>
           <div style={{marginRight: '2px'}}>
             <div style={{textAlign:'center'}}>{month}</div>
             <div style={{margin: 'auto', textAlign:'center'}}>{date.getDate()}</div>

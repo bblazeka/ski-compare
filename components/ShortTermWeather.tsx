@@ -10,7 +10,7 @@ export default function ShortTermWeather({ data }: ShortTermWeatherProps) {
   return (
     <div className={styles.container}>
       {data.map((el: any, i: number) => {
-        var date = new Date(el.dt * 1000);
+        const date = new Date(el.dt * 1000);
         return (
           <div key={i}>
             <Image width={30} height={30} alt={el.weather[0].description} src={`http://openweathermap.org/img/wn/${el.weather[0].icon}@2x.png`} />

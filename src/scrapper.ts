@@ -8,27 +8,27 @@ export async function scrap(name: string) {
   const dom = new JSDOM(text);
 
   const list = dom.window.document.getElementsByClassName('dd-dense')[0];
-  var children = list.children;
-  var easy = parseFloat(children[1].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
-  var medium = parseFloat(children[3].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
-  var hard = parseFloat(children[5].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
+  const children = list.children;
+  const easy = parseFloat(children[1].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
+  const medium = parseFloat(children[3].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
+  const hard = parseFloat(children[5].textContent?.split(' ')[0].replace(/,/, '.') ?? '0.0');
 
-  var rating = dom.window.document.getElementsByClassName('rating-number')[0].textContent ?? '0,0';
-  var count = dom.window.document.getElementsByClassName('rating-count')[0].textContent;
+  const rating = dom.window.document.getElementsByClassName('rating-number')[0].textContent ?? '0,0';
+  const count = dom.window.document.getElementsByClassName('rating-count')[0].textContent;
 
-  var skiLiftCounts: any[] = [];
-  var skiLifts = dom.window.document.getElementsByClassName('lifte');
+  const skiLiftCounts: any[] = [];
+  const skiLifts = dom.window.document.getElementsByClassName('lifte');
   for (let i = 0; i < skiLifts.length; i++) {
-    var liftCount = skiLifts[i].children[0].textContent ?? '0';
-    var liftName = skiLifts[i].children[1].getAttribute('title');
+    const liftCount = skiLifts[i].children[0].textContent ?? '0';
+    const liftName = skiLifts[i].children[1].getAttribute('title');
     if (liftCount != '0') {
       skiLiftCounts.push({name: liftName, value: parseInt(liftCount)});
     }
   }
 
-  var reportInfos = dom.window.document.getElementsByClassName('report-info');
-  var snow = reportInfos[1].children[0].textContent?.trim();
-  var liftStatus = reportInfos[3].children[0].textContent?.trim().replace('\n',' ');
+  const reportInfos = dom.window.document.getElementsByClassName('report-info');
+  const snow = reportInfos[1].children[0].textContent?.trim();
+  const liftStatus = reportInfos[3].children[0].textContent?.trim().replace('\n',' ');
 
   return {
     'easy': easy,

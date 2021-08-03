@@ -5,7 +5,7 @@ import ShortTermWeather from './ShortTermWeather';
 describe('ShortTermWeather', () => {
 
   it('displays value, title and subtitle', () => {
-    var data = [{
+    const data = [{
       dt: 1627516800,
       temp: 6.88,
       feels_like: 5.45,
@@ -80,7 +80,7 @@ describe('ShortTermWeather', () => {
     }];
     const { getByText } = render(<ShortTermWeather data={data} />, {});
     data.map((d) => {
-      var date = new Date(d.dt * 1000);
+      const date = new Date(d.dt * 1000);
       expect(getByText(`${date.getHours()}h`)).toBeInTheDocument();
     });
   });

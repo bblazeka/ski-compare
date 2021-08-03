@@ -12,7 +12,7 @@ type TitleContainerProps = {
 export default function TitleContainer({ resort }: TitleContainerProps) {
 
   React.useEffect(() => {
-    var fontAwesomeCss = document.querySelector('#font-awesome-css') ?? undefined;
+    const fontAwesomeCss = document.querySelector('#font-awesome-css') ?? undefined;
     const node = loadCSS(
       'https://use.fontawesome.com/releases/v5.12.0/css/all.css',
       fontAwesomeCss as any,

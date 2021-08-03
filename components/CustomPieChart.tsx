@@ -28,7 +28,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
     );
   };
 
-  var getColor = (entry: any, index: number) => {
+  const getColor = (entry: any, index: number) => {
     if (manual) {
       return categories.find((cat: Category) => cat.key?.toLowerCase() === entry.name)?.color;
     }
@@ -37,7 +37,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
     }
   };
 
-  var groupDistribution = distribution.map((el) => {
+  const groupDistribution = distribution.map((el) => {
     return Object.assign(el, { catName: categories?.find((cat: Category) => cat.key?.toLowerCase() === el.name)?.name, id: el.name });
   });
 

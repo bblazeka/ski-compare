@@ -1,8 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-import { Category } from '../utils/types';
+import { Category } from '../../utils/types';
 import styles from './CustomPieChart.module.css';
-import categories from '../utils/categories.json';
+import categories from '../../utils/categories.json';
 
 type CustomPieChartProps = {
   distribution: any[],
@@ -10,13 +10,15 @@ type CustomPieChartProps = {
   manual: boolean
 }
 
-const colors: any[] = ['#1F77B4', '#FF851A', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2'];
+const colors: string[] = ['#1F77B4', '#FF851A', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2'];
 
 export default function CustomPieChart(props: CustomPieChartProps) {
   const { distribution, title, manual } = props;
 
   const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: { cx: number, cy: number, midAngle: number, innerRadius: number, outerRadius: number, percent: number, index: number }) => {
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: 
+    { cx: number, cy: number, midAngle: number, innerRadius: number, outerRadius: number, percent: number, index: number }
+    ) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -74,7 +76,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
             </Pie>
             <Tooltip />
             <Legend
-              layout="vertical"
+              layout='vertical'
               align='right'
               verticalAlign='middle'
               formatter={manual ? renderColorfulLegendText : undefined}

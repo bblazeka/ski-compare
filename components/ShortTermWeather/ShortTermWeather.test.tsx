@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from '../testUtils';
-import ShortTermWeather from './ShortTermWeather';
+import { render } from '../../testUtils';
+import ShortTermWeather from '.';
 
 describe('ShortTermWeather', () => {
 

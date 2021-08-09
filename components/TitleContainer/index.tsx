@@ -3,7 +3,7 @@ import { loadCSS } from 'fg-loadcss';
 import Icon from '@material-ui/core/Icon';
 import Link from '@material-ui/core/Link';
 import styles from './TitleContainer.module.css';
-import WeatherBadge from './WeatherBadge';
+import WeatherBadge from '../WeatherBadge';
 
 type TitleContainerProps = {
   resort: any

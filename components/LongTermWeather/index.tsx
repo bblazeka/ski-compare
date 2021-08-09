@@ -1,12 +1,11 @@
 import React from 'react';
-import WeatherBadge from './WeatherBadge';
+import WeatherBadge from '../WeatherBadge';
 
 type LongTermWeatherProps = {
   data: any[]
 }
 
 export default function LongTermWeather({ data }: LongTermWeatherProps) {
-
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {data.map((el: any, index: number) => {

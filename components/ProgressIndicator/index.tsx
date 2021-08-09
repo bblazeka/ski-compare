@@ -15,7 +15,7 @@ type ProgressIndicatorProps = {
 }
 
 export default function ProgressIndicator({ title, status }: ProgressIndicatorProps) {
-  let progress = status.progress / 5 * 100;
+  const progress = status.progress / 5 * 100;
   return (
     <>
       {title && <h3 role='title'>{title}</h3>}

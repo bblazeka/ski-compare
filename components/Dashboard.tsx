@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useContext } from 'react';
 import CustomPieChart from './CustomPieChart';
 import DualAreaChart from './DualAreaChart';
 import ProgressIndicator from './ProgressIndicator';
@@ -7,54 +6,36 @@ import TitleContainer from './TitleContainer';
 import TempRainChart from './TempRainChart';
 import LongTermWeather from './LongTermWeather';
 import ShortTermWeather from './ShortTermWeather';
-import { Category, SkiResort } from '../utils/types';
-import skiCategories from '../utils/categories.json';
+import { SkiResort } from '../utils/types';
+import CompareChart from './CompareChart';
 
 type DashboardProps = {
-  skiResorts: SkiResort[]
 }
 
-export default function Dashboard(props: DashboardProps) {
-  const { skiResorts } = props;
+type SkiContextProps = {
+  skiResorts: SkiResort[],
+  activeSkiResort: number,
+  setActiveSkiResort: Function
+}
 
-  const [activeSkiResort, setactiveSkiResort] = useState(0);
+
+export const SkiContext = React.createContext<SkiContextProps>({
+  skiResorts: [],
+  activeSkiResort: 0,
+  setActiveSkiResort: (index:number) => {console.log(index);}
+});
+
+export default function Dashboard(props: DashboardProps) {
+
+  
+  const { skiResorts, activeSkiResort } = useContext(SkiContext);
 
   const currentSkiResort = skiResorts[activeSkiResort];
-  const slopeDistribution = Object.entries(currentSkiResort.slopes).map(([key, value]) => { return { name: key, value }; }).filter(el => ['easy', 'hard', 'medium'].includes(el.name));
+  const slopeDistribution = Object.entries(currentSkiResort.slopes).map(([key, value]) => { return { name: key, value }; }).filter(el => ['easy', 'medium', 'hard'].includes(el.name));
 
   return (
-    <div style={{ width: '85%' }}>
-      <h3>Skigebiet vergleich</h3>
-      <div style={{ width: '100%', height: '30vh' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={skiResorts}
-            margin={{
-              top: 20,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis unit="km" />
-            <Tooltip />
-            <Legend />
-            {skiCategories.map((cat: Category, i: number) => {
-              return (<Bar
-                key={i}
-                dataKey={`slopes.${cat.key?.toLowerCase()}`}
-                name={cat.name}
-                unit="km"
-                stackId="a"
-                fill={cat.color}
-                onClick={(data, index) => setactiveSkiResort(index)}
-              />);
-            })}
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      <div style={{ width: '85%' }}>
+      <CompareChart />
       <TitleContainer resort={currentSkiResort} />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ width: '32%', minWidth: '400px', height: '30vh' }}>

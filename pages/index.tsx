@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from '../styles/Home.module.css';
-import Dashboard from '../components/Dashboard';
+import Dashboard, { SkiContext } from '../components/Dashboard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Home({ data }: any) {
   const classes = useStyles();
+
+  const [activeSkiResort, setActiveSkiResort] = useState(0);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -57,7 +60,10 @@ export default function Home({ data }: any) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {data && data.skiResorts && <Dashboard skiResorts={data.skiResorts} />}
+      {data && data.skiResorts &&
+        <SkiContext.Provider value={{ skiResorts: data.skiResorts, activeSkiResort, setActiveSkiResort }}>
+          <Dashboard />
+        </SkiContext.Provider>}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -76,11 +82,11 @@ export default function Home({ data }: any) {
 
 export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== 'production';
-  
+
   // to dynamically determine the backend location use process.env.VERCEL_URL
   const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare.vercel.app/api/data';
   const res = await axios.get(server);
-  
+
   return {
     props: {
       data: res.data

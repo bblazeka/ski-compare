@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import _ from 'lodash';
-import { SkiResort } from '../../utils/types';
 import { scrap } from '../../src/scrapper';
 import { GetWeatherApi } from '../../src/fetcher';
 import { getTestData } from '../../utils/data';

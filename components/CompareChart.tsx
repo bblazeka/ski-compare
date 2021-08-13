@@ -2,9 +2,8 @@ import React, { useContext, useState } from 'react';
 import { BarChart, Bar, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import skiCategories from '../../utils/categories.json';
-import { Category } from '../../utils/types';
-import { SkiContext } from '../Dashboard';
+import skiCategories from '../utils/categories.json';
+import { SkiContext } from 'context/SkiContext';
 import { AxisDomain } from 'recharts/types/util/types';
 
 type CompareChartProps = {

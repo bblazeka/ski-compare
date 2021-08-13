@@ -1,10 +1,10 @@
-export type Category = {
+type Category = {
   key: string,
   name: string,
   color: string
 }
 
-export type SkiResort = {
+type SkiResort = {
   key: string,
   name: string,
   lat: number,

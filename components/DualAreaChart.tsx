@@ -1,5 +1,5 @@
 import React from 'react';
-import { AreaChart, Area, Label, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, Legend, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 type DualAreaChartProps = {
   data: any[],

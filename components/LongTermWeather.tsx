@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherBadge from '../WeatherBadge';
+import { WeatherBadge } from '.';
 
 type LongTermWeatherProps = {
   data: any[]

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '../../testUtils';
-import ProgressIndicator from '.';
+import ProgressIndicator from './ProgressIndicator';
 
 describe('ProgressIndicator', () => {
 

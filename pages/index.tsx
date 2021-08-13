@@ -11,7 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import styles from '../styles/Home.module.css';
-import Dashboard, { SkiContext } from '../components/Dashboard';
+import { Dashboard } from 'components';
+import { SkiContext } from 'context/SkiContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

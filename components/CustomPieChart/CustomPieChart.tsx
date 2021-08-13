@@ -1,6 +1,5 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-import { Category } from '../../utils/types';
 import styles from './CustomPieChart.module.css';
 import categories from '../../utils/categories.json';
 

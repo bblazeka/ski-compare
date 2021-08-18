@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
-import Image from 'next/image';
-import axios from 'axios';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
-import styles from '../styles/Home.module.css';
-import { Dashboard } from 'components';
-import { SkiContext } from 'context/SkiContext';
+import React, { useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import axios from "axios";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import IconButton from "@material-ui/core/IconButton";
+import Link from "@material-ui/core/Link";
+import MenuIcon from "@material-ui/icons/Menu";
+import styles from "../styles/Home.module.css";
+import { Dashboard } from "components";
+import { SkiContext } from "context/SkiContext";
+import ResortDrawer from "components/ResortDrawer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,13 +26,27 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     name: {
       flexGrow: 1,
-      textAlign: 'center'
-    }
-  }),
+      textAlign: "center",
+    },
+  })
 );
 
 export default function Home({ data }: any) {
   const classes = useStyles();
+  const [visible, setVisible] = React.useState(false);
+
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setVisible(open);
+    };
 
   const [activeSkiResort, setActiveSkiResort] = useState(0);
 
@@ -44,9 +59,22 @@ export default function Home({ data }: any) {
       </Head>
       <AppBar position="static" color="primary">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+          <React.Fragment key="left">
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <ResortDrawer
+              resorts={data?.skiResorts}
+              toggleDrawer={toggleDrawer}
+              open={visible}
+            />
+          </React.Fragment>
           <Typography variant="h6" className={classes.name}>
             skivergleich
           </Typography>
@@ -55,23 +83,31 @@ export default function Home({ data }: any) {
               color="inherit"
               href="https://github.com/bblazeka/ski-compare"
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               <GitHubIcon />
             </Link>
           </IconButton>
         </Toolbar>
       </AppBar>
-      {data && data.skiResorts &&
-        <SkiContext.Provider value={{ skiResorts: data.skiResorts, activeSkiResort, setActiveSkiResort }}>
+      {data && data.skiResorts && (
+        <SkiContext.Provider
+          value={{
+            skiResorts: data.skiResorts,
+            activeSkiResort,
+            setActiveSkiResort,
+          }}
+        >
           <Dashboard />
-        </SkiContext.Provider>}
+        </SkiContext.Provider>
+      )}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
@@ -82,15 +118,17 @@ export default function Home({ data }: any) {
 }
 
 export async function getStaticProps() {
-  const dev = process.env.NODE_ENV !== 'production';
+  const dev = process.env.NODE_ENV !== "production";
 
   // to dynamically determine the backend location use process.env.VERCEL_URL
-  const server = dev ? 'http://localhost:3000/api/data' : 'https://ski-compare.vercel.app/api/data';
+  const server = dev
+    ? "http://localhost:3000/api/data"
+    : "https://ski-compare.vercel.app/api/data";
   const res = await axios.get(server);
 
   return {
     props: {
-      data: res.data
+      data: res.data,
     },
   };
 }

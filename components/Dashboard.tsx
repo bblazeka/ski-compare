@@ -14,9 +14,12 @@ import { SkiContext } from "context/SkiContext";
 type DashboardProps = {};
 
 export default function Dashboard(props: DashboardProps) {
-  const { skiResorts, activeSkiResort } = useContext(SkiContext);
-
-  const currentSkiResort = skiResorts[activeSkiResort];
+  const { visibleSkiResorts: skiResorts, activeSkiResort } =
+    useContext(SkiContext);
+  console.log("visible", skiResorts);
+  const currentSkiResort = skiResorts.filter((s) => s.selected)[
+    activeSkiResort
+  ];
   const slopeDistribution = Object.entries(currentSkiResort.slopes)
     .map(([key, value]) => {
       return { name: key, value };

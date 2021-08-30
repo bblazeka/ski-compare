@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useMemo } from "react";
+import styled from "styled-components";
 import {
   CompareChart,
   CustomPieChart,
@@ -9,29 +10,41 @@ import {
   TempRainChart,
   TitleContainer,
 } from "components";
-import { SkiContext } from "context/SkiContext";
+import { useCurrentSkiResort } from "hooks/hooks";
 
-type DashboardProps = {};
+const DashboardStyled = styled.div`
+  width: 85%;
+`;
 
-export default function Dashboard(props: DashboardProps) {
-  const { visibleSkiResorts: skiResorts, activeSkiResort } =
-    useContext(SkiContext);
-  console.log("visible", skiResorts);
-  const currentSkiResort = skiResorts.filter((s) => s.selected)[
-    activeSkiResort
-  ];
-  const slopeDistribution = Object.entries(currentSkiResort.slopes)
-    .map(([key, value]) => {
-      return { name: key, value };
-    })
-    .filter((el) => ["easy", "medium", "hard"].includes(el.name));
+const FullGraphContainer = styled.div`
+  width: 100%;
+  height: 40vh;
+`;
+
+const SmallGraphContainer = styled.div`
+  width: 32%;
+  minwidth: 400px;
+  height: 30vh;
+`;
+
+export default function Dashboard() {
+  const currentSkiResort = useCurrentSkiResort();
+  const slopeDistribution = useMemo(
+    () =>
+      Object.entries(currentSkiResort?.slopes)
+        .map(([key, value]) => {
+          return { name: key, value };
+        })
+        .filter((el) => ["easy", "medium", "hard"].includes(el.name)),
+    [currentSkiResort]
+  );
 
   return (
-    <div style={{ width: "85%" }}>
+    <DashboardStyled>
       <CompareChart />
       <TitleContainer resort={currentSkiResort} />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <div style={{ width: "32%", minWidth: "400px", height: "30vh" }}>
+        <SmallGraphContainer>
           <ProgressIndicator
             title="Beliebt"
             status={{
@@ -40,32 +53,32 @@ export default function Dashboard(props: DashboardProps) {
               subtitle: currentSkiResort.slopes.count,
             }}
           />
-        </div>
-        <div style={{ width: "32%", minWidth: "400px", height: "30vh" }}>
+        </SmallGraphContainer>
+        <SmallGraphContainer>
           <CustomPieChart
             title="Pistenübersicht"
             distribution={slopeDistribution}
             manual={true}
           />
-        </div>
-        <div style={{ width: "32%", minWidth: "400px", height: "30vh" }}>
+        </SmallGraphContainer>
+        <SmallGraphContainer>
           <CustomPieChart
             title="Liftenübersicht"
             distribution={currentSkiResort.slopes.lifts}
             manual={false}
           />
-        </div>
+        </SmallGraphContainer>
       </div>
       <h3>Wettervorhersage für die nächsten 7 Tage</h3>
       <LongTermWeather data={currentSkiResort.weather.daily} />
       <h3>Wettervorhersage für die nächsten 48 Stunden</h3>
       <ShortTermWeather data={currentSkiResort.weather.hourly} />
       <h3>Temperatur und Niederschlag in 48 Stunden</h3>
-      <div style={{ width: "100%", height: "40vh" }}>
+      <FullGraphContainer>
         <TempRainChart data={currentSkiResort.weather.hourly} />
-      </div>
+      </FullGraphContainer>
       <h3>Wind in 48 Stunden</h3>
-      <div style={{ width: "100%", height: "40vh" }}>
+      <FullGraphContainer>
         <DualAreaChart
           data={currentSkiResort.weather.hourly}
           unit="m/s"
@@ -74,7 +87,7 @@ export default function Dashboard(props: DashboardProps) {
           primaryPropName="Geschwindigkeit"
           secondaryPropName="Windböe"
         />
-      </div>
-    </div>
+      </FullGraphContainer>
+    </DashboardStyled>
   );
 }

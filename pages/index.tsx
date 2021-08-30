@@ -49,7 +49,6 @@ export default function Home({ data }: any) {
     };
 
   function applyChanges() {
-    console.log(data?.skiResorts);
     setVisible(false);
     setActiveSkiResort(0);
     setVisibleSkiResorts(data?.skiResorts.filter((s: SkiResort) => s.selected));
@@ -57,7 +56,7 @@ export default function Home({ data }: any) {
 
   const [activeSkiResort, setActiveSkiResort] = useState(0);
   const [visibleSkiResorts, setVisibleSkiResorts] = useState(
-    data?.skiResorts.filter((s: SkiResort) => s.selected)
+    data?.skiResorts?.filter((s: SkiResort) => s.selected)
   );
   return (
     <div className={styles.container}>

@@ -23,7 +23,7 @@ const FullGraphContainer = styled.div`
 
 const SmallGraphContainer = styled.div`
   width: 32%;
-  minwidth: 400px;
+  min-width: 400px;
   height: 30vh;
 `;
 

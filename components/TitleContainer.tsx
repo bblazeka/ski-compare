@@ -1,13 +1,24 @@
 import React from "react";
+import styled from "styled-components";
 import { loadCSS } from "fg-loadcss";
 import Icon from "@material-ui/core/Icon";
 import Link from "@material-ui/core/Link";
-import styles from "./TitleContainer.module.css";
 import { WeatherBadge } from "components";
 
 type TitleContainerProps = {
   resort: any;
 };
+
+const TitleContainerStyled = styled.div`
+  display: flex;
+`;
+
+const StatusBarStyled = styled.div`
+  margin-top: auto;
+  & > span {
+    margin-left: 20px;
+  }
+`;
 
 export default function TitleContainer({ resort }: TitleContainerProps) {
   React.useEffect(() => {
@@ -25,7 +36,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
   return (
     <>
       <h1>{resort.name}</h1>
-      <div style={{ display: "flex" }}>
+      <TitleContainerStyled>
         <span
           style={{ fontSize: 25, fontWeight: 400, margin: "auto 10px 0 0px" }}
         >
@@ -40,7 +51,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
         >
           {resort.weather.current.temp.toFixed(0)}°C
         </span>
-        <div className={styles.statusbar}>
+        <StatusBarStyled>
           <span style={{ fontSize: 20 }}>
             Gefühlte: {resort.weather.current.feels_like.toFixed(0)}°C
           </span>
@@ -64,8 +75,8 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
           >
             Mehr details...
           </Link>
-        </div>
-      </div>
+        </StatusBarStyled>
+      </TitleContainerStyled>
     </>
   );
 }

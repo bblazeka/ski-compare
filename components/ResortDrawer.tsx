@@ -11,11 +11,9 @@ import FilterHdrIcon from "@material-ui/icons/FilterHdr";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Checkbox from "@material-ui/core/Checkbox";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { keyBy } from "lodash";
 import { useContext } from "react";
-import { SkiContext } from "context/SkiContext";
+import { SkiContext } from "src/SkiContext";
 
 type ResortDrawerProps = {
   readonly resorts: SkiResort[];
@@ -49,7 +47,6 @@ export default function ResortDrawer({
   }
   const [visibleSkiResorts, setVisibility] = useState(visibleSkiResortsList);
   const classes = useStyles();
-
   return (
     <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
       <div
@@ -60,18 +57,21 @@ export default function ResortDrawer({
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          {skiResorts.map((key: SkiResort, index: number) => (
+          {skiResorts.map((skiResort: SkiResort, index: number) => (
             <ListItem button key={index}>
               <ListItemAvatar>
                 <Avatar>
                   <FilterHdrIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={key.name} secondary={key.name} />
+              <ListItemText
+                primary={skiResort.name}
+                secondary={`${skiResort.slopes.easy}km-${skiResort.slopes.medium}km-${skiResort.slopes.hard}km`}
+              />
               <ListItemSecondaryAction>
                 <Checkbox
-                  checked={key.selected}
-                  onClick={() => handleClick(!key.selected, key)}
+                  checked={skiResort.selected}
+                  onClick={() => handleClick(!skiResort.selected, skiResort)}
                   color="primary"
                   inputProps={{
                     "aria-label": "secondary checkbox",

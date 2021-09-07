@@ -12,7 +12,7 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import styles from "../styles/Home.module.css";
 import { Dashboard } from "components";
-import { SkiContext } from "context/SkiContext";
+import { SkiContext } from "src/SkiContext";
 import ResortDrawer from "components/ResortDrawer";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { SkiContext } from "context/SkiContext";
+import { SkiContext } from "src/SkiContext";
 
 export function useCurrentSkiResort(): SkiResort {
   const { visibleSkiResorts: skiResorts, activeSkiResort } =

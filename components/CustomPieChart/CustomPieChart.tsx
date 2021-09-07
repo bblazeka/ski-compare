@@ -8,13 +8,12 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { colors } from "src/colors";
-import categories from "../../utils/categories.json";
+import { getColor, mapToPieData } from "./CustomPieChartHelper";
+import CustomPieChartLabel from "./CustomPieChartLabel";
 
 type CustomPieChartProps = {
-  distribution: any[];
+  distribution: PieData[];
   title: string;
-  manual: boolean;
 };
 
 const CustomPieChartContainerStyled = styled.div`
@@ -22,68 +21,25 @@ const CustomPieChartContainerStyled = styled.div`
   height: 25vh;
 `;
 
+function CustomPieChartLegendFormatter({ value, entry }: any) {
+  const { color, payload } = entry;
+  return <span style={{ color }}>{payload.catName}</span>;
+}
+
 export default function CustomPieChart(props: CustomPieChartProps) {
-  const { distribution, title, manual } = props;
+  const { distribution, title } = props;
 
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-    index,
-  }: {
-    cx: number;
-    cy: number;
-    midAngle: number;
-    innerRadius: number;
-    outerRadius: number;
-    percent: number;
-    index: number;
-  }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  const mappedPieData = mapToPieData(distribution);
 
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
+  let optionalProps: any = {};
+
+  if (distribution[0].catName) {
+    const renderColorfulLegendText = (value: string, entry: any) => (
+      <CustomPieChartLegendFormatter value={value} entry={entry} />
     );
-  };
+    optionalProps.formatter = renderColorfulLegendText;
+  }
 
-  const getColor = (entry: any, index: number) => {
-    if (manual) {
-      return categories.find(
-        (cat: Category) => cat.key?.toLowerCase() === entry.name
-      )?.color;
-    } else {
-      return colors[index % colors.length];
-    }
-  };
-
-  const groupDistribution = distribution.map((el) => {
-    return Object.assign(el, {
-      catName: categories?.find(
-        (cat: Category) => cat.key?.toLowerCase() === el.name
-      )?.name,
-      id: el.name,
-    });
-  });
-
-  const renderColorfulLegendText = (value: string, entry: any) => {
-    const { color, payload } = entry;
-
-    return <span style={{ color }}>{payload.catName}</span>;
-  };
   return (
     <>
       {title && <h3>{title}</h3>}
@@ -95,9 +51,9 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               dataKey="value"
               nameKey="catName"
               isAnimationActive={false}
-              data={groupDistribution}
+              data={mappedPieData}
               labelLine={false}
-              label={renderCustomizedLabel}
+              label={(props) => <CustomPieChartLabel {...props} />}
               cx="50%"
               cy="50%"
               outerRadius={80}
@@ -112,7 +68,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
               layout="vertical"
               align="right"
               verticalAlign="middle"
-              formatter={manual ? renderColorfulLegendText : undefined}
+              {...optionalProps}
             />
           </PieChart>
         </ResponsiveContainer>

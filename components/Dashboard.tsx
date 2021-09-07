@@ -10,7 +10,7 @@ import {
   TempRainChart,
   TitleContainer,
 } from "components";
-import { useCurrentSkiResort } from "hooks/hooks";
+import { useCurrentSkiResort } from "src/hooks";
 
 const DashboardStyled = styled.div`
   width: 85%;
@@ -33,7 +33,7 @@ export default function Dashboard() {
     () =>
       Object.entries(currentSkiResort?.slopes)
         .map(([key, value]) => {
-          return { name: key, value };
+          return { id: key, name: key, value: value as number };
         })
         .filter((el) => ["easy", "medium", "hard"].includes(el.name)),
     [currentSkiResort]
@@ -58,14 +58,12 @@ export default function Dashboard() {
           <CustomPieChart
             title="Pistenübersicht"
             distribution={slopeDistribution}
-            manual={true}
           />
         </SmallGraphContainer>
         <SmallGraphContainer>
           <CustomPieChart
             title="Liftenübersicht"
             distribution={currentSkiResort.slopes.lifts}
-            manual={false}
           />
         </SmallGraphContainer>
       </div>

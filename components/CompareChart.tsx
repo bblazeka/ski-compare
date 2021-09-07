@@ -11,8 +11,8 @@ import {
 } from "recharts";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import skiCategories from "../utils/categories.json";
-import { SkiContext } from "context/SkiContext";
+import { CATEGORIES } from "config/preferences";
+import { SkiContext } from "src/SkiContext";
 import { AxisDomain } from "recharts/types/util/types";
 
 type CompareChartProps = {};
@@ -27,7 +27,7 @@ type CompareMode = {
 };
 
 function GetSlopesBars({ onClick }: any) {
-  return skiCategories.map((cat: Category, i: number) => {
+  return CATEGORIES.map((cat: Category, i: number) => {
     return (
       <Bar
         key={i}

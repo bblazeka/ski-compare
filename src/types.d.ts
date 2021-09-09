@@ -8,11 +8,14 @@ type Slopes = {
   readonly easy: number;
   readonly medium: number;
   readonly hard: number;
+  readonly total: number;
   readonly rating: number;
   readonly count: string;
   readonly lifts: any[];
   readonly snow: string;
   readonly liftStatus: string;
+  readonly bottomElevation: number;
+  readonly topElevation: number;
 };
 
 type SkiResort = {

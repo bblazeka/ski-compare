@@ -10,6 +10,7 @@ export function getTestData() {
         easy: 17,
         medium: 16,
         hard: 9,
+        total: 42,
         rating: 4.4,
         count: "1.087",
         lifts: [
@@ -33,6 +34,7 @@ export function getTestData() {
         easy: 8,
         medium: 8,
         hard: 2,
+        total: 18,
         rating: 3.5,
         count: "1.279",
         lifts: [],
@@ -51,6 +53,7 @@ export function getTestData() {
         easy: 18,
         medium: 10,
         hard: 0,
+        total: 28,
         rating: 4,
         count: "3.394",
         lifts: [],
@@ -69,6 +72,7 @@ export function getTestData() {
         easy: 7,
         medium: 16,
         hard: 3,
+        total: 26,
         rating: 4.8,
         count: "751",
         lifts: [],
@@ -87,6 +91,7 @@ export function getTestData() {
         easy: 14.5,
         medium: 24,
         hard: 3.5,
+        total: 42,
         rating: 3.9,
         count: "1.975",
         lifts: [
@@ -110,6 +115,7 @@ export function getTestData() {
         easy: 14.5,
         medium: 24,
         hard: 3.5,
+        total: 42,
         rating: 3.9,
         count: "1.975",
         lifts: [
@@ -133,6 +139,7 @@ export function getTestData() {
         easy: 14.5,
         medium: 24,
         hard: 3.5,
+        total: 42,
         rating: 3.9,
         count: "1.975",
         lifts: [
@@ -156,6 +163,7 @@ export function getTestData() {
         easy: 14.5,
         medium: 24,
         hard: 3.5,
+        total: 42,
         rating: 3.9,
         count: "1.975",
         lifts: [

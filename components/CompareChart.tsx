@@ -53,6 +53,27 @@ function GetRatingBars({ onClick }: any) {
   );
 }
 
+function GetElevationBars({ onClick }: any) {
+  return [
+    <Bar
+      key={1}
+      dataKey="slopes.bottomElevation"
+      name=""
+      stackId="a"
+      fill="transparent"
+      onClick={onClick}
+    />,
+    <Bar
+      key={2}
+      dataKey="slopes.topElevation"
+      name="Elevation"
+      stackId="a"
+      fill="#1976D2"
+      onClick={onClick}
+    />,
+  ];
+}
+
 export default function CompareChart(props: CompareChartProps) {
   const [mode, setMode] = useState(0);
 
@@ -78,6 +99,14 @@ export default function CompareChart(props: CompareChartProps) {
       domain: [0, 5],
       ticks: [0, 1, 2, 3, 4, 5],
       renderBar: GetRatingBars({ onClick: barClickHandler }),
+    },
+    {
+      id: 2,
+      name: "Höhe",
+      unit: "m",
+      domain: [1000, 3000],
+      ticks: [],
+      renderBar: GetElevationBars({ onClick: barClickHandler }),
     },
   ];
 

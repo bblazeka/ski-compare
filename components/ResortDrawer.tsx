@@ -66,7 +66,7 @@ export default function ResortDrawer({
               </ListItemAvatar>
               <ListItemText
                 primary={skiResort.name}
-                secondary={`${skiResort.slopes.easy}km-${skiResort.slopes.medium}km-${skiResort.slopes.hard}km`}
+                secondary={`${skiResort.slopes.total} km`}
               />
               <ListItemSecondaryAction>
                 <Checkbox

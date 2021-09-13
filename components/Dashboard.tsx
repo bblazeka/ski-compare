@@ -50,7 +50,7 @@ export default function Dashboard() {
             status={{
               name: currentSkiResort.name,
               progress: currentSkiResort.slopes.rating,
-              subtitle: currentSkiResort.slopes.count,
+              subtitle: currentSkiResort.slopes.ratingsCount,
             }}
           />
         </SmallGraphContainer>

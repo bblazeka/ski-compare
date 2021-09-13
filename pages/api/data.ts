@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import _ from "lodash";
-import { scrap } from "../../src/scrapper";
-import { GetWeatherApi } from "../../src/fetcher";
-import { getTestData } from "../../src/data";
-import cache from "../../src/cache";
+import { scrap } from "src/scrapper";
+import { GetWeatherApi, GetDistance } from "src/fetcher";
+import { getTestData } from "src/data";
+import cache from "src/cache";
 import getConfig from "next/config";
 
 type CachedNextApiRequest = NextApiRequest & { cache: any };
@@ -35,24 +35,25 @@ export async function handler(
   let skiResorts = getTestData();
   const dev = process.env.NODE_ENV !== "production";
 
+  const startLat = 47.069410857943055;
+  const startLong = 15.439037603079603;
   if (dev) {
     const lat = 47.067936905855106;
     const long = 14.033547742358444;
     const weatherReq = await GetWeatherApi(lat, long);
+    const distanceRes = await GetDistance(startLat, startLong, lat, long);
+    const distance =
+      distanceRes.data.resourceSets[0].resources[0].travelDistance;
     const weatherData = weatherReq.data;
 
     weatherData.hourly.map((el: any) => {
       const date = new Date(el.dt * 1000);
-      return Object.assign(el, {
-        index: date.getHours(),
-      });
+      return { ...el, index: date.getHours() };
     });
 
     skiResorts = await Promise.all(
       skiResorts.map(async (el) => {
-        return Object.assign(el, {
-          weather: weatherReq.data,
-        });
+        return { ...el, weather: weatherReq.data, distance };
       })
     );
   } else {
@@ -61,17 +62,20 @@ export async function handler(
         const slopes = await scrap(el.key);
         const response = await GetWeatherApi(el.lat, el.long);
         const weather = response.data;
+        const distanceRes = await GetDistance(
+          startLat,
+          startLong,
+          el.lat,
+          el.long
+        );
+        const distance =
+          distanceRes.data.resourceSets[0].resources[0].travelDistance;
         headers = response.headers;
         weather.hourly.map((el: any) => {
           const date = new Date(el.dt * 1000);
-          return Object.assign(el, {
-            index: date.getHours(),
-          });
+          return { ...el, index: date.getHours() };
         });
-        return Object.assign(el, {
-          slopes,
-          weather,
-        });
+        return { ...el, slopes, weather, distance };
       })
     );
   }

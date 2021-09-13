@@ -2,12 +2,13 @@ import { CATEGORIES, COLORS } from "config/preferences";
 
 export function mapToPieData(distribution: any[]): PieData[] {
   return distribution.map((el) => {
-    return Object.assign(el, {
+    return {
+      ...el,
       catName: CATEGORIES.find(
         (cat: Category) => cat.key?.toLowerCase() === el.name
       )?.name,
       id: el.name,
-    });
+    };
   });
 }
 

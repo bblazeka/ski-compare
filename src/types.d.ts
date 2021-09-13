@@ -10,12 +10,13 @@ type Slopes = {
   readonly hard: number;
   readonly total: number;
   readonly rating: number;
-  readonly count: string;
+  readonly ratingsCount: string;
   readonly lifts: any[];
   readonly snow: string;
   readonly liftStatus: string;
   readonly bottomElevation: number;
   readonly topElevation: number;
+  readonly logoPath: string;
 };
 
 type SkiResort = {
@@ -25,6 +26,7 @@ type SkiResort = {
   readonly long: number;
   readonly slopes: Slopes;
   readonly weather: any;
+  readonly distance: number;
   selected: boolean;
 };
 

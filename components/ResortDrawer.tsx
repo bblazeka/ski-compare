@@ -7,10 +7,13 @@ import List from "@material-ui/core/List";
 import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import FilterHdrIcon from "@material-ui/icons/FilterHdr";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItemText from "@material-ui/core/ListItemText";
+import RoomIcon from "@material-ui/icons/Room";
+import MapIcon from "@material-ui/icons/Map";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Checkbox from "@material-ui/core/Checkbox";
+import Typography from "@material-ui/core/Typography";
 import { keyBy } from "lodash";
 import { useContext } from "react";
 import { SkiContext } from "src/SkiContext";
@@ -24,10 +27,14 @@ type ResortDrawerProps = {
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 350,
+    overflowX: "hidden",
   },
   fullList: {
     width: "auto",
+  },
+  drawerTitle: {
+    textAlign: "center",
   },
 });
 
@@ -56,17 +63,29 @@ export default function ResortDrawer({
         role="presentation"
         onKeyDown={toggleDrawer(false)}
       >
+        <Typography variant="h6" className={classes.drawerTitle}>
+          Skigebiete
+        </Typography>
         <List>
           {skiResorts.map((skiResort: SkiResort, index: number) => (
             <ListItem button key={index}>
               <ListItemAvatar>
-                <Avatar>
-                  <FilterHdrIcon />
-                </Avatar>
+                <Avatar
+                  variant="rounded"
+                  alt={skiResort.name}
+                  src={skiResort.slopes.logoPath}
+                />
               </ListItemAvatar>
               <ListItemText
                 primary={skiResort.name}
-                secondary={`${skiResort.slopes.total} km`}
+                secondary={
+                  <React.Fragment>
+                    <MapIcon fontSize="small" />
+                    {`${skiResort.slopes.total} km`}
+                    <RoomIcon fontSize="small" />
+                    {`${skiResort.distance} km`}
+                  </React.Fragment>
+                }
               />
               <ListItemSecondaryAction>
                 <Checkbox
@@ -81,7 +100,7 @@ export default function ResortDrawer({
             </ListItem>
           ))}
         </List>
-        <Button onClick={() => applyChanges(skiResorts)}>Apply</Button>
+        <Button onClick={() => applyChanges(skiResorts)}>Anwenden</Button>
       </div>
     </Drawer>
   );

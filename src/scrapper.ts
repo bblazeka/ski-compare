@@ -1,7 +1,7 @@
 import jsdom from "jsdom";
 const { JSDOM } = jsdom;
 
-export async function scrap(name: string) {
+export async function scrap(name: string): Promise<Slopes> {
   const url = `https://www.bergfex.at/${name}/`;
   const response = await fetch(url);
   const text = await response.text();
@@ -52,18 +52,23 @@ export async function scrap(name: string) {
     parseInt(skiResortTopBottomElevation[1].replace(".", "")) -
     parseInt(skiResortTopBottomElevation[0].replace(".", ""));
 
+  const imgContainer = dom.window.document.getElementsByClassName("logo")[0];
+
+  const imgPath = imgContainer.children[0].getAttribute("src") as string;
+
   return {
     easy: easy,
     medium: medium,
     hard: hard,
     total: (easy || 0) + (medium || 0) + (hard || 0),
     rating: parseFloat(rating.replace(/,/, ".")),
-    count: count,
+    ratingsCount: count ?? "0",
     lifts: skiLiftCounts,
-    snow: snow,
+    snow: snow ?? "",
     liftStatus: liftStatus ? liftStatus : "-",
     bottomElevation: skiResortBottom,
     topElevation: skiResortTop,
+    logoPath: imgPath,
   };
 }
 

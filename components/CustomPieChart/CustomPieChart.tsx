@@ -33,7 +33,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
 
   let optionalProps: any = {};
 
-  if (distribution[0].catName) {
+  if (distribution.length > 0 && distribution[0].catName) {
     const renderColorfulLegendText = (value: string, entry: any) => (
       <CustomPieChartLegendFormatter value={value} entry={entry} />
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
 import { loadCSS } from "fg-loadcss";
 import Icon from "@material-ui/core/Icon";
 import Link from "@material-ui/core/Link";
@@ -9,18 +9,20 @@ type TitleContainerProps = {
   resort: any;
 };
 
-const TitleContainerStyled = styled.div`
-  display: flex;
-`;
-
-const StatusBarStyled = styled.div`
-  margin-top: auto;
-  & > span {
-    margin-left: 20px;
-  }
-`;
+const useStyles = makeStyles({
+  titleContainer: {
+    display: "flex",
+  },
+  statusBar: {
+    marginTop: "auto",
+    "& > span": {
+      marginLeft: "20px",
+    },
+  },
+});
 
 export default function TitleContainer({ resort }: TitleContainerProps) {
+  const classes = useStyles();
   React.useEffect(() => {
     const fontAwesomeCss =
       document.querySelector("#font-awesome-css") ?? undefined;
@@ -36,7 +38,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
   return (
     <>
       <h1>{resort.name}</h1>
-      <TitleContainerStyled>
+      <div className={classes.titleContainer}>
         <span
           style={{ fontSize: 25, fontWeight: 400, margin: "auto 10px 0 0px" }}
         >
@@ -51,7 +53,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
         >
           {resort.weather.current.temp.toFixed(0)}°C
         </span>
-        <StatusBarStyled>
+        <div className={classes.statusBar}>
           <span style={{ fontSize: 20 }}>
             Gefühlte: {resort.weather.current.feels_like.toFixed(0)}°C
           </span>
@@ -75,8 +77,8 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
           >
             Mehr details...
           </Link>
-        </StatusBarStyled>
-      </TitleContainerStyled>
+        </div>
+      </div>
     </>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {
   PieChart,
   Pie,
@@ -8,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { makeStyles } from "@material-ui/core/styles";
 import { getColor, mapToPieData } from "./CustomPieChartHelper";
 import CustomPieChartLabel from "./CustomPieChartLabel";
 
@@ -16,10 +16,12 @@ type CustomPieChartProps = {
   title: string;
 };
 
-const CustomPieChartContainerStyled = styled.div`
-  min-width: 25vw;
-  height: 25vh;
-`;
+const useStyles = makeStyles({
+  pieChartContainer: {
+    minWidth: "25vw",
+    height: "25vh",
+  },
+});
 
 function CustomPieChartLegendFormatter({ value, entry }: any) {
   const { color, payload } = entry;
@@ -28,6 +30,7 @@ function CustomPieChartLegendFormatter({ value, entry }: any) {
 
 export default function CustomPieChart(props: CustomPieChartProps) {
   const { distribution, title } = props;
+  const classes = useStyles();
 
   const mappedPieData = mapToPieData(distribution);
 
@@ -44,7 +47,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
     <>
       {title && <h3>{title}</h3>}
       {distribution.length === 0 && <div>Nicht verfügbar.</div>}
-      <CustomPieChartContainerStyled>
+      <div className={classes.pieChartContainer}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -72,7 +75,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
             />
           </PieChart>
         </ResponsiveContainer>
-      </CustomPieChartContainerStyled>
+      </div>
     </>
   );
 }

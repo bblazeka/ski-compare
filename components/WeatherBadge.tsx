@@ -1,27 +1,31 @@
 import React from "react";
-import styled from "styled-components";
 import Image from "next/image";
+
+import { makeStyles } from "@material-ui/core/styles";
 
 type WeatherIconProps = {
   icon: string;
   description: string;
 };
 
-const WeatherBadgeStyled = styled.span`
-  margin: auto 2px 0 2px;
-  background-color: skyblue;
-  border-radius: 18px;
-`;
+const useStyles = makeStyles({
+  pieChartContainer: {
+    margin: "auto 2px 0 2px",
+    backgroundColor: "skyblue",
+    borderRadius: "18px",
+  },
+});
 
 export default function WeatherIcon({ icon, description }: WeatherIconProps) {
+  const classes = useStyles();
   return (
-    <WeatherBadgeStyled>
+    <span className={classes.pieChartContainer}>
       <Image
         width={40}
         height={40}
         alt={description}
         src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
       />
-    </WeatherBadgeStyled>
+    </span>
   );
 }

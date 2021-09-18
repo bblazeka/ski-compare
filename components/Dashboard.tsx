@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   CompareChart,
   CustomPieChart,
@@ -12,22 +12,23 @@ import {
 } from "components";
 import { useCurrentSkiResort } from "src/hooks";
 
-const DashboardStyled = styled.div`
-  width: 85%;
-`;
-
-const FullGraphContainer = styled.div`
-  width: 100%;
-  height: 40vh;
-`;
-
-const SmallGraphContainer = styled.div`
-  width: 32%;
-  min-width: 400px;
-  height: 30vh;
-`;
+const useStyles = makeStyles({
+  dashboard: {
+    width: "85%",
+  },
+  fullGraph: {
+    width: "100%",
+    height: "40vh",
+  },
+  smallGraph: {
+    width: "32%",
+    minWidth: "400px",
+    height: "30vh",
+  },
+});
 
 export default function Dashboard() {
+  const classes = useStyles();
   const currentSkiResort = useCurrentSkiResort();
   const slopeDistribution = useMemo(
     () =>
@@ -40,11 +41,11 @@ export default function Dashboard() {
   );
 
   return (
-    <DashboardStyled>
+    <div className={classes.dashboard}>
       <CompareChart />
       <TitleContainer resort={currentSkiResort} />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <SmallGraphContainer>
+        <div className={classes.smallGraph}>
           <ProgressIndicator
             title="Beliebt"
             status={{
@@ -53,30 +54,30 @@ export default function Dashboard() {
               subtitle: currentSkiResort.slopes.ratingsCount,
             }}
           />
-        </SmallGraphContainer>
-        <SmallGraphContainer>
+        </div>
+        <div className={classes.smallGraph}>
           <CustomPieChart
             title="Pistenübersicht"
             distribution={slopeDistribution}
           />
-        </SmallGraphContainer>
-        <SmallGraphContainer>
+        </div>
+        <div className={classes.smallGraph}>
           <CustomPieChart
             title="Liftenübersicht"
             distribution={currentSkiResort.slopes.lifts}
           />
-        </SmallGraphContainer>
+        </div>
       </div>
       <h3>Wettervorhersage für die nächsten 7 Tage</h3>
       <LongTermWeather data={currentSkiResort.weather.daily} />
       <h3>Wettervorhersage für die nächsten 48 Stunden</h3>
       <ShortTermWeather data={currentSkiResort.weather.hourly} />
       <h3>Temperatur und Niederschlag in 48 Stunden</h3>
-      <FullGraphContainer>
+      <div className={classes.fullGraph}>
         <TempRainChart data={currentSkiResort.weather.hourly} />
-      </FullGraphContainer>
+      </div>
       <h3>Wind in 48 Stunden</h3>
-      <FullGraphContainer>
+      <div className={classes.fullGraph}>
         <DualAreaChart
           data={currentSkiResort.weather.hourly}
           unit="m/s"
@@ -85,7 +86,7 @@ export default function Dashboard() {
           primaryPropName="Geschwindigkeit"
           secondaryPropName="Windböe"
         />
-      </FullGraphContainer>
-    </DashboardStyled>
+      </div>
+    </div>
   );
 }

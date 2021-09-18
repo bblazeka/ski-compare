@@ -1,6 +1,6 @@
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles'; // works with @material-ui/core/styles, if you prefer to use it.
+import React from "react";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheets } from "@material-ui/core/styles"; // works with @material-ui/core/styles, if you prefer to use it.
 
 export default class MyDocument extends Document {
   render() {
@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* Not exactly required, but this is the PWA primary color */}
-          <meta name="theme-color" content='#1976D2' />
+          <meta name="theme-color" content="#1976D2" />
         </Head>
         <body>
           <Main />
@@ -48,15 +48,25 @@ MyDocument.getInitialProps = async (ctx) => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
+  function enhanceApp(App: any) {
+    function appEnhancer(props: any) {
+      return sheets.collect(<App {...props} />);
+    }
+    return appEnhancer;
+  }
+
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+      enhanceApp: (App) => enhanceApp(App),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      sheets.getStyleElement(),
+    ],
   };
 };

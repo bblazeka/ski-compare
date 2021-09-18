@@ -59,6 +59,7 @@ export default function Home({ data }: any) {
   const [visibleSkiResorts, setVisibleSkiResorts] = useState(
     data?.skiResorts?.filter((s: SkiResort) => s.selected)
   );
+  console.log(data);
   return (
     <div className={styles.container}>
       <Head>
@@ -134,6 +135,9 @@ export default function Home({ data }: any) {
 export async function getStaticProps() {
   const dev = process.env.NODE_ENV !== "production";
 
+  // TODO: find a way to deploy efficiently when there are backend changes
+  // Currently: use 1st commmit with process.env.VERCEL_APP to use current endpoint
+  // 2nd commit to set server endpoint to ski-compare.vercel.app because it delivers data
   const server = dev
     ? "http://localhost:3000/api/data"
     : `https://ski-compare.vercel.app/api/data`;

@@ -1,10 +1,14 @@
-type Category = {
+type TData = {
+  skiResorts: TSkiResort[];
+};
+
+type TCategory = {
   readonly key: string;
   readonly name: string;
   readonly color: string;
 };
 
-type Slopes = {
+type TSlopes = {
   readonly easy: number;
   readonly medium: number;
   readonly hard: number;
@@ -19,18 +23,18 @@ type Slopes = {
   readonly logoPath: string;
 };
 
-type SkiResort = {
+type TSkiResort = {
   readonly key: string;
   readonly name: string;
   readonly lat: number;
   readonly long: number;
-  readonly slopes: Slopes;
+  readonly slopes: TSlopes;
   readonly weather: any;
   readonly distance: number;
   selected: boolean;
 };
 
-type PieData = {
+type TPieData = {
   readonly id: string;
   readonly name: string;
   readonly value: number;

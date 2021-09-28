@@ -22,7 +22,7 @@ import { useContext } from "react";
 import { SkiContext } from "src/SkiContext";
 
 type ResortDrawerProps = {
-  readonly resorts: SkiResort[];
+  readonly resorts: TSkiResort[];
   toggleDrawer: any;
   applyChanges: any;
   readonly open: boolean;
@@ -54,7 +54,7 @@ export default function ResortDrawer({
   const [sorting, setSorting] = useState("");
   const { skiResorts } = useContext(SkiContext);
   const visibleSkiResortsList = keyBy(skiResorts, "name");
-  function handleClick(checked: boolean, resort: SkiResort) {
+  function handleClick(checked: boolean, resort: TSkiResort) {
     const updatedSelected = {
       ...visibleSkiResorts,
     };
@@ -97,7 +97,7 @@ export default function ResortDrawer({
         </FormControl>
 
         <List>
-          {skiResortSelection.map((skiResort: SkiResort, index: number) => (
+          {skiResortSelection.map((skiResort: TSkiResort, index: number) => (
             <ListItem button key={index}>
               <ListItemAvatar>
                 <Avatar

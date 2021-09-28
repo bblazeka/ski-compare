@@ -27,7 +27,7 @@ type CompareMode = {
 };
 
 function GetSlopesBars({ onClick }: any) {
-  return CATEGORIES.map((cat: Category, i: number) => {
+  return CATEGORIES.map((cat: TCategory, i: number) => {
     return (
       <Bar
         key={i}

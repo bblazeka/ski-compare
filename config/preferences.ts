@@ -1,4 +1,4 @@
-export const CATEGORIES: Category[] = [
+export const CATEGORIES: TCategory[] = [
   {
     key: "easy",
     name: "Leicht",

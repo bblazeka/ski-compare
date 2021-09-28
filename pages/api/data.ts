@@ -10,7 +10,7 @@ import getConfig from "next/config";
 type CachedNextApiRequest = NextApiRequest & { cache: any };
 
 type Data = {
-  skiResorts: SkiResort[];
+  skiResorts: TSkiResort[];
 };
 
 const {

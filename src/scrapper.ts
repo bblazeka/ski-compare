@@ -1,7 +1,7 @@
 import jsdom from "jsdom";
 const { JSDOM } = jsdom;
 
-export async function scrap(name: string): Promise<Slopes> {
+export async function scrap(name: string): Promise<TSlopes> {
   const url = `https://www.bergfex.at/${name}/`;
   const response = await fetch(url);
   const text = await response.text();

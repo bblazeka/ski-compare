@@ -12,7 +12,7 @@ import { getColor, mapToPieData } from "./CustomPieChartHelper";
 import CustomPieChartLabel from "./CustomPieChartLabel";
 
 type CustomPieChartProps = {
-  distribution: PieData[];
+  distribution: TPieData[];
   title: string;
 };
 

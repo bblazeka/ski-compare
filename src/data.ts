@@ -1,4 +1,4 @@
-export function getTestData(): SkiResort[] {
+export function getTestData(): TSkiResort[] {
   return [
     {
       name: "Kreischberg",

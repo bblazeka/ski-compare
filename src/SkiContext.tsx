@@ -1,8 +1,8 @@
 import React from "react";
 
 type SkiContextProps = {
-  skiResorts: SkiResort[];
-  visibleSkiResorts: SkiResort[];
+  skiResorts: TSkiResort[];
+  visibleSkiResorts: TSkiResort[];
   activeSkiResort: number;
   setActiveSkiResort: Function;
   setVisibleSkiResorts: Function;

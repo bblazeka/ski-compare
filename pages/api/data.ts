@@ -28,7 +28,7 @@ export async function handler(
     res.setHeader("Cache-Control", `public,max-age=${CACHE_MAX_AGE_IN_S}`);
     res.setHeader("X-Cache", "HIT");
 
-    return res.json(data);
+    return res.json({ skiResorts: data });
   }
 
   let headers = {};

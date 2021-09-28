@@ -141,10 +141,7 @@ export async function getStaticProps() {
     ? "http://localhost:3000/api/data"
     : `https://ski-compare.vercel.app/api/data`;
   const res = await axios.get(server);
-
   return {
-    props: {
-      data: res.data,
-    },
+    props: res.data,
   };
 }

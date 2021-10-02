@@ -1,3 +1,5 @@
+# ski-compare
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). Idea behind the project to create a web application to visualize and compare ski resorts to decide on the next ski trips. Ski resorts are compared by their properties such as location, number of slopes and visitors rating. Additionally, weather data for selected ski resorts can be analysed.
 
 This is not a commercial project. Purpose of this project is to apply new technologies on a topic I personally find useful.

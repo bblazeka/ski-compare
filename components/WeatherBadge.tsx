@@ -24,6 +24,7 @@ export default function WeatherIcon({ icon, description }: WeatherIconProps) {
         width={40}
         height={40}
         alt={description}
+        title={description}
         src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
       />
     </span>

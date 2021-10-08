@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
 import {
   CompareChart,
   CustomPieChart,
@@ -11,6 +12,7 @@ import {
   TitleContainer,
 } from "components";
 import { useCurrentSkiResort } from "src/hooks";
+import Strings from "src/strings";
 
 const useStyles = makeStyles({
   dashboard: {
@@ -47,7 +49,7 @@ export default function Dashboard() {
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <div className={classes.smallGraph}>
           <ProgressIndicator
-            title="Beliebt"
+            title={Strings.POPULARITY}
             status={{
               name: currentSkiResort.name,
               progress: currentSkiResort.slopes.rating,
@@ -57,26 +59,26 @@ export default function Dashboard() {
         </div>
         <div className={classes.smallGraph}>
           <CustomPieChart
-            title="Pistenübersicht"
+            title={Strings.SKI_SLOPES_OVERVIEW}
             distribution={slopeDistribution}
           />
         </div>
         <div className={classes.smallGraph}>
           <CustomPieChart
-            title="Liftenübersicht"
+            title={Strings.SKI_LIFT_OVERVIEW}
             distribution={currentSkiResort.slopes.lifts}
           />
         </div>
       </div>
-      <h3>Wettervorhersage für die nächsten 7 Tage</h3>
+      <h3>{Strings.WEATHER_FORECAST_FOR_NEXT_7_DAYS}</h3>
       <LongTermWeather data={currentSkiResort.weather.daily} />
-      <h3>Wettervorhersage für die nächsten 48 Stunden</h3>
+      <h3>{Strings.WEATHER_FORECAST_FOR_NEXT_48_HOURS}</h3>
       <ShortTermWeather data={currentSkiResort.weather.hourly} />
-      <h3>Temperatur und Niederschlag in 48 Stunden</h3>
+      <h3>{Strings.TEMPERATURE_AND_PERCIPITAION_IN_NEXT_48_HOURS}</h3>
       <div className={classes.fullGraph}>
         <TempRainChart data={currentSkiResort.weather.hourly} />
       </div>
-      <h3>Wind in 48 Stunden</h3>
+      <h3>{Strings.WIND_IN_48_HOURS}</h3>
       <div className={classes.fullGraph}>
         <DualAreaChart
           data={currentSkiResort.weather.hourly}

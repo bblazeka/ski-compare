@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./ShortTermWeather.module.css";
+import { CenteredDiv } from "src/common";
 
 type ShortTermWeatherProps = {
   data: any[];
@@ -18,12 +19,13 @@ export default function ShortTermWeather({ data }: ShortTermWeatherProps) {
               width={30}
               height={30}
               alt={el.weather[0].description}
+              title={el.weather[0].description}
               src={imageUrl}
             />
             <div>
-              <div className={styles.day}>
+              <CenteredDiv>
                 {date.toLocaleString("de", { weekday: "short" }).toUpperCase()}
-              </div>
+              </CenteredDiv>
               <div className={styles.time}>{date.getHours()}h</div>
             </div>
           </div>

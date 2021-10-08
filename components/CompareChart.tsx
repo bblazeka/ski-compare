@@ -14,6 +14,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { CATEGORIES } from "config/preferences";
 import { SkiContext } from "src/SkiContext";
 import { AxisDomain } from "recharts/types/util/types";
+import Strings from "src/strings";
 
 type CompareChartProps = {};
 
@@ -114,7 +115,7 @@ export default function CompareChart(props: CompareChartProps) {
 
   return (
     <>
-      <h3>Skigebiet vergleich</h3>
+      <h3>{Strings.SKI_RESORT_COMPARISON}</h3>
       <div style={{ width: "100%" }}>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
           {modes.map((el, index) => {

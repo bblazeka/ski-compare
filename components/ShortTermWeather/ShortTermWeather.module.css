@@ -7,17 +7,13 @@
   padding: 0 2vw 0 2vw;
 }
 
-.day {
-  text-align: center;
-}
-
 .time {
   text-align: center;
   margin: auto;
   font-size: 0.75em;
 }
 
-@media screen and (max-width:610px){
+@media screen and (max-width: 610px) {
   .container > div:nth-child(3n) {
     display: none;
   }
@@ -26,13 +22,13 @@
   }
 }
 
-@media screen and (max-width:910px){
+@media screen and (max-width: 910px) {
   .container > div:nth-child(3n) {
     display: none;
   }
 }
 
-@media screen and (max-width:1795px){
+@media screen and (max-width: 1795px) {
   .container > div:nth-child(odd) {
     display: none;
   }

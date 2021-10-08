@@ -20,6 +20,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useContext } from "react";
 import { SkiContext } from "src/SkiContext";
+import Strings from "src/strings";
 
 type ResortDrawerProps = {
   readonly resorts: TSkiResort[];
@@ -81,7 +82,7 @@ export default function ResortDrawer({
         </Typography>
         <FormControl className={classes.sortControl}>
           <InputLabel htmlFor="demo-simple-select-label">
-            Sortieren nach
+            {Strings.SORT_BY}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -90,9 +91,9 @@ export default function ResortDrawer({
             onChange={handleChange}
           >
             <MenuItem value=""></MenuItem>
-            <MenuItem value={"distance"}>Distanz</MenuItem>
-            <MenuItem value={"slopes.rating"}>Bewertung</MenuItem>
-            <MenuItem value={"slopes.total"}>Pisten</MenuItem>
+            <MenuItem value={"distance"}>{Strings.DISTANCE}</MenuItem>
+            <MenuItem value={"slopes.rating"}>{Strings.RATING}</MenuItem>
+            <MenuItem value={"slopes.total"}>{Strings.SLOPES}</MenuItem>
           </Select>
         </FormControl>
 
@@ -130,7 +131,9 @@ export default function ResortDrawer({
             </ListItem>
           ))}
         </List>
-        <Button onClick={() => applyChanges(skiResorts)}>Anwenden</Button>
+        <Button onClick={() => applyChanges(skiResorts)}>
+          {Strings.APPLY}
+        </Button>
       </div>
     </Drawer>
   );

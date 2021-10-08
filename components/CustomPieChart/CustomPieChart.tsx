@@ -10,6 +10,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { getColor, mapToPieData } from "./CustomPieChartHelper";
 import CustomPieChartLabel from "./CustomPieChartLabel";
+import Strings from "src/strings";
 
 type CustomPieChartProps = {
   distribution: TPieData[];
@@ -46,7 +47,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
   return (
     <>
       {title && <h3>{title}</h3>}
-      {distribution.length === 0 && <div>Nicht verfügbar.</div>}
+      {distribution.length === 0 && <div>{Strings.NOT_AVAILABLE}</div>}
       <div className={classes.pieChartContainer}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

@@ -4,6 +4,7 @@ import { loadCSS } from "fg-loadcss";
 import Icon from "@material-ui/core/Icon";
 import Link from "@material-ui/core/Link";
 import { WeatherBadge } from "components";
+import Strings from "src/strings";
 
 type TitleContainerProps = {
   resort: any;
@@ -55,7 +56,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
         </span>
         <div className={classes.statusBar}>
           <span style={{ fontSize: 20 }}>
-            Gefühlte: {resort.weather.current.feels_like.toFixed(0)}°C
+            {Strings.FEEL_TEMP(resort.weather.current.feels_like.toFixed(0))}
           </span>
           <span style={{ fontSize: 20 }}>
             <Icon className="fas fa-wind" style={{ fontSize: 20 }} />{" "}
@@ -75,7 +76,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Mehr details...
+            {Strings.MORE_DETAILS}
           </Link>
         </div>
       </div>

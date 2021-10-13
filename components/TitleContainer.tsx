@@ -1,10 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { loadCSS } from "fg-loadcss";
 import Icon from "@material-ui/core/Icon";
 import Link from "@material-ui/core/Link";
+
 import { WeatherBadge } from "components";
-import Strings from "src/strings";
 
 type TitleContainerProps = {
   resort: any;
@@ -24,6 +25,7 @@ const useStyles = makeStyles({
 
 export default function TitleContainer({ resort }: TitleContainerProps) {
   const classes = useStyles();
+  const { t } = useTranslation();
   React.useEffect(() => {
     const fontAwesomeCss =
       document.querySelector("#font-awesome-css") ?? undefined;
@@ -56,7 +58,9 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
         </span>
         <div className={classes.statusBar}>
           <span style={{ fontSize: 20 }}>
-            {Strings.FEEL_TEMP(resort.weather.current.feels_like.toFixed(0))}
+            {t("FEEL_TEMP", {
+              temp: resort.weather.current.feels_like.toFixed(0),
+            })}
           </span>
           <span style={{ fontSize: 20 }}>
             <Icon className="fas fa-wind" style={{ fontSize: 20 }} />{" "}
@@ -76,7 +80,7 @@ export default function TitleContainer({ resort }: TitleContainerProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {Strings.MORE_DETAILS}
+            {t("MORE_DETAILS")}
           </Link>
         </div>
       </div>

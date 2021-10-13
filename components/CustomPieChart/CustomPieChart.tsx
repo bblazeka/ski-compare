@@ -10,7 +10,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { getColor, mapToPieData } from "./CustomPieChartHelper";
 import CustomPieChartLabel from "./CustomPieChartLabel";
-import Strings from "src/strings";
+import { useTranslation } from "react-i18next";
 
 type CustomPieChartProps = {
   distribution: TPieData[];
@@ -31,6 +31,7 @@ function CustomPieChartLegendFormatter({ value, entry }: any) {
 
 export default function CustomPieChart(props: CustomPieChartProps) {
   const { distribution, title } = props;
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const mappedPieData = mapToPieData(distribution);
@@ -47,7 +48,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
   return (
     <>
       {title && <h3>{title}</h3>}
-      {distribution.length === 0 && <div>{Strings.NOT_AVAILABLE}</div>}
+      {distribution.length === 0 && <div>{t("NOT_AVAILABLE")}</div>}
       <div className={classes.pieChartContainer}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>

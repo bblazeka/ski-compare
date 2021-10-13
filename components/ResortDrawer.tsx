@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import clsx from "clsx";
 import { keyBy, orderBy } from "lodash";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,9 +18,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useContext } from "react";
+import { useTranslation } from "react-i18next";
+
 import { SkiContext } from "src/SkiContext";
-import Strings from "src/strings";
 
 type ResortDrawerProps = {
   readonly resorts: TSkiResort[];
@@ -52,6 +52,7 @@ export default function ResortDrawer({
   toggleDrawer,
   open,
 }: ResortDrawerProps) {
+  const { t } = useTranslation();
   const [sorting, setSorting] = useState("");
   const { skiResorts } = useContext(SkiContext);
   const visibleSkiResortsList = keyBy(skiResorts, "name");
@@ -82,7 +83,7 @@ export default function ResortDrawer({
         </Typography>
         <FormControl className={classes.sortControl}>
           <InputLabel htmlFor="demo-simple-select-label">
-            {Strings.SORT_BY}
+            {t("SORT_BY")}
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -91,9 +92,9 @@ export default function ResortDrawer({
             onChange={handleChange}
           >
             <MenuItem value=""></MenuItem>
-            <MenuItem value={"distance"}>{Strings.DISTANCE}</MenuItem>
-            <MenuItem value={"slopes.rating"}>{Strings.RATING}</MenuItem>
-            <MenuItem value={"slopes.total"}>{Strings.SLOPES}</MenuItem>
+            <MenuItem value={"distance"}>{t("DISTANCE")}</MenuItem>
+            <MenuItem value={"slopes.rating"}>{t("RATING")}</MenuItem>
+            <MenuItem value={"slopes.total"}>{t("SLOPES")}</MenuItem>
           </Select>
         </FormControl>
 
@@ -131,9 +132,7 @@ export default function ResortDrawer({
             </ListItem>
           ))}
         </List>
-        <Button onClick={() => applyChanges(skiResorts)}>
-          {Strings.APPLY}
-        </Button>
+        <Button onClick={() => applyChanges(skiResorts)}>{t("APPLY")}</Button>
       </div>
     </Drawer>
   );

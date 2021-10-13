@@ -11,12 +11,11 @@ import {
 } from "recharts";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { AxisDomain } from "recharts/types/util/types";
+import { useTranslation } from "react-i18next";
+
 import { CATEGORIES } from "config/preferences";
 import { SkiContext } from "src/SkiContext";
-import { AxisDomain } from "recharts/types/util/types";
-import Strings from "src/strings";
-
-type CompareChartProps = {};
 
 type CompareMode = {
   id: number;
@@ -75,7 +74,8 @@ function GetElevationBars({ onClick }: any) {
   ];
 }
 
-export default function CompareChart(props: CompareChartProps) {
+export default function CompareChart() {
+  const { t } = useTranslation();
   const [mode, setMode] = useState(0);
 
   const { visibleSkiResorts: skiResorts, setActiveSkiResort } =
@@ -87,7 +87,7 @@ export default function CompareChart(props: CompareChartProps) {
   const modes: CompareMode[] = [
     {
       id: 0,
-      name: "Pisten",
+      name: t("SLOPES"),
       unit: "km",
       domain: [0, "auto"],
       ticks: [],
@@ -95,7 +95,7 @@ export default function CompareChart(props: CompareChartProps) {
     },
     {
       id: 1,
-      name: "Bewertung",
+      name: t("RATING"),
       unit: "",
       domain: [0, 5],
       ticks: [0, 1, 2, 3, 4, 5],
@@ -115,7 +115,7 @@ export default function CompareChart(props: CompareChartProps) {
 
   return (
     <>
-      <h3>{Strings.SKI_RESORT_COMPARISON}</h3>
+      <h3>{t("SKI_RESORT_COMPARISON")}</h3>
       <div style={{ width: "100%" }}>
         <ButtonGroup color="primary" aria-label="outlined primary button group">
           {modes.map((el, index) => {

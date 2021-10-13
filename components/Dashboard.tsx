@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTranslation } from "react-i18next";
 
 import {
   CompareChart,
@@ -12,7 +13,6 @@ import {
   TitleContainer,
 } from "components";
 import { useCurrentSkiResort } from "src/hooks";
-import Strings from "src/strings";
 
 const useStyles = makeStyles({
   dashboard: {
@@ -31,6 +31,7 @@ const useStyles = makeStyles({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const { t } = useTranslation();
   const currentSkiResort = useCurrentSkiResort();
   const slopeDistribution = useMemo(
     () =>
@@ -49,7 +50,7 @@ export default function Dashboard() {
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <div className={classes.smallGraph}>
           <ProgressIndicator
-            title={Strings.POPULARITY}
+            title={t("POPULARITY")}
             status={{
               name: currentSkiResort.name,
               progress: currentSkiResort.slopes.rating,
@@ -59,26 +60,26 @@ export default function Dashboard() {
         </div>
         <div className={classes.smallGraph}>
           <CustomPieChart
-            title={Strings.SKI_SLOPES_OVERVIEW}
+            title={t("SKI_SLOPES_OVERVIEW")}
             distribution={slopeDistribution}
           />
         </div>
         <div className={classes.smallGraph}>
           <CustomPieChart
-            title={Strings.SKI_LIFT_OVERVIEW}
+            title={t("SKI_LIFT_OVERVIEW")}
             distribution={currentSkiResort.slopes.lifts}
           />
         </div>
       </div>
-      <h3>{Strings.WEATHER_FORECAST_FOR_NEXT_7_DAYS}</h3>
+      <h3>{t("WEATHER_FORECAST_FOR_NEXT_7_DAYS")}</h3>
       <LongTermWeather data={currentSkiResort.weather.daily} />
-      <h3>{Strings.WEATHER_FORECAST_FOR_NEXT_48_HOURS}</h3>
+      <h3>{t("WEATHER_FORECAST_FOR_NEXT_48_HOURS")}</h3>
       <ShortTermWeather data={currentSkiResort.weather.hourly} />
-      <h3>{Strings.TEMPERATURE_AND_PERCIPITAION_IN_NEXT_48_HOURS}</h3>
+      <h3>{t("TEMPERATURE_AND_PERCIPITAION_IN_NEXT_48_HOURS")}</h3>
       <div className={classes.fullGraph}>
         <TempRainChart data={currentSkiResort.weather.hourly} />
       </div>
-      <h3>{Strings.WIND_IN_48_HOURS}</h3>
+      <h3>{t("WIND_IN_48_HOURS")}</h3>
       <div className={classes.fullGraph}>
         <DualAreaChart
           data={currentSkiResort.weather.hourly}

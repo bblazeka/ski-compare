@@ -75,7 +75,7 @@ export default function Dashboard() {
       <LongTermWeather data={currentSkiResort.weather.daily} />
       <h3>{t("WEATHER_FORECAST_FOR_NEXT_48_HOURS")}</h3>
       <ShortTermWeather data={currentSkiResort.weather.hourly} />
-      <h3>{t("TEMPERATURE_AND_PERCIPITAION_IN_NEXT_48_HOURS")}</h3>
+      <h3>{t("TEMPERATURE_AND_PERCIPITATION_IN_NEXT_48_HOURS")}</h3>
       <div className={classes.fullGraph}>
         <TempRainChart data={currentSkiResort.weather.hourly} />
       </div>

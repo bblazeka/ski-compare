@@ -10,7 +10,7 @@ const Strings = {
   SKI_SLOPES_OVERVIEW: "Pistenübersicht",
   SLOPES: "Pisten",
   SORT_BY: "Sortieren nach",
-  TEMPERATURE_AND_PERCIPITAION_IN_NEXT_48_HOURS:
+  TEMPERATURE_AND_PERCIPITATION_IN_NEXT_48_HOURS:
     "Temperatur und Niederschlag in 48 Stunden",
   WEATHER_FORECAST_FOR_NEXT_48_HOURS:
     "Wettervorhersage für die nächsten 48 Stunden",

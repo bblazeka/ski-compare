@@ -11,6 +11,7 @@ type CachedNextApiRequest = NextApiRequest & { cache: any };
 
 type Data = {
   skiResorts: TSkiResort[];
+  lastUpdate: Date;
 };
 
 const {
@@ -28,7 +29,7 @@ export async function handler(
     res.setHeader("Cache-Control", `public,max-age=${CACHE_MAX_AGE_IN_S}`);
     res.setHeader("X-Cache", "HIT");
 
-    return res.json({ skiResorts: data });
+    return res.json(data);
   }
 
   let headers = {};
@@ -84,16 +85,17 @@ export async function handler(
     );
   }
 
+  const returnData = { skiResorts, lastUpdate: new Date() };
   if (!isNil(req.cache)) {
     req.cache.set(cacheKey, {
       headers,
-      data: skiResorts,
+      data: returnData,
     });
   }
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("X-Cache", "MISS");
 
-  res.status(200).json({ skiResorts });
+  res.status(200).json(returnData);
 }
 
 export default cache(handler);

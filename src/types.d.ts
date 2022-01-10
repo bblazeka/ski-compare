@@ -1,5 +1,6 @@
 type TData = {
   skiResorts: TSkiResort[];
+  lastUpdate: Date;
 };
 
 type TCategory = {

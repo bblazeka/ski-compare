@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Bar,
   ComposedChart,
@@ -16,6 +16,19 @@ type TempRainChartProps = {
 };
 
 export default function TempRainChart({ data }: TempRainChartProps) {
+  const [min, max] = useMemo(
+    () => [
+      Math.min(
+        ...data.map((el) => el.temp),
+        ...data.map((el) => el.feels_like)
+      ),
+      Math.max(
+        ...data.map((el) => el.temp),
+        ...data.map((el) => el.feels_like)
+      ),
+    ],
+    [data]
+  );
   return (
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart
@@ -23,7 +36,13 @@ export default function TempRainChart({ data }: TempRainChartProps) {
         margin={{ top: 10, right: -10, left: -10, bottom: 0 }}
       >
         <XAxis dataKey="hours" unit="h" />
-        <YAxis yAxisId="left" type="number" dataKey="temp" unit="°C" />
+        <YAxis
+          yAxisId="left"
+          type="number"
+          dataKey="temp"
+          unit="°C"
+          domain={[Math.round(min - 1), Math.round(max + 1)]}
+        />
         <YAxis
           yAxisId="right"
           type="number"

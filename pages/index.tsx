@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import axios from "axios";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import IconButton from "@material-ui/core/IconButton";
+import Link from "@material-ui/core/Link";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import IconButton from "@material-ui/core/IconButton";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
-import styles from "../styles/Home.module.css";
+import axios from "axios";
+import Head from "next/head";
+import React, { useState } from "react";
+
 import { Dashboard } from "components";
-import { SkiContext } from "src/SkiContext";
-import ResortDrawer from "components/ResortDrawer";
 import Footer from "components/Footer";
+import ResortDrawer from "components/ResortDrawer";
+import { SkiContext } from "src/SkiContext";
+
+import styles from "../styles/Home.module.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

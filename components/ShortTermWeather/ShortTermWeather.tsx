@@ -1,7 +1,9 @@
-import React from "react";
 import Image from "next/image";
-import styles from "./ShortTermWeather.module.css";
+import React from "react";
+
 import { CenteredDiv } from "src/common";
+
+import styles from "./ShortTermWeather.module.css";
 
 type ShortTermWeatherProps = {
   data: any[];

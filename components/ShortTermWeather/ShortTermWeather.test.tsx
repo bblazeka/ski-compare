@@ -1,6 +1,8 @@
 import React from "react";
-import { render } from "../../testUtils";
+
 import { ShortTermWeather } from "components";
+
+import { render } from "../../testUtils";
 
 describe("ShortTermWeather", () => {
   it("displays value, title and subtitle", () => {

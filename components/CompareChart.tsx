@@ -1,4 +1,7 @@
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   BarChart,
   Bar,
@@ -9,10 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { AxisDomain } from "recharts/types/util/types";
-import { useTranslation } from "react-i18next";
 
 import { CATEGORIES } from "config/preferences";
 import { SkiContext } from "src/SkiContext";

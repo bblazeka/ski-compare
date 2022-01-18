@@ -1,9 +1,9 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { makeStyles } from "@material-ui/core/styles";
-import { loadCSS } from "fg-loadcss";
 import Icon from "@material-ui/core/Icon";
 import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
+import { loadCSS } from "fg-loadcss";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { WeatherBadge } from "components";
 

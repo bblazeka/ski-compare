@@ -1,4 +1,6 @@
+import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   PieChart,
   Pie,
@@ -7,10 +9,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { makeStyles } from "@material-ui/core/styles";
+
 import { getColor, mapToPieData } from "./CustomPieChartHelper";
 import CustomPieChartLabel from "./CustomPieChartLabel";
-import { useTranslation } from "react-i18next";
 
 type CustomPieChartProps = {
   distribution: TPieData[];
@@ -36,7 +37,7 @@ export default function CustomPieChart(props: CustomPieChartProps) {
 
   const mappedPieData = mapToPieData(distribution);
 
-  let optionalProps: any = {};
+  const optionalProps: any = {};
 
   if (distribution.length > 0 && distribution[0].catName) {
     const renderColorfulLegendText = (value: string, entry: any) => (

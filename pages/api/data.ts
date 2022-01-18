@@ -1,11 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
 import { isNil } from "lodash";
-import { scrap } from "src/scrapper";
-import { GetWeatherApi, GetDistance } from "src/fetcher";
-import { getTestData } from "src/data";
-import cache from "src/cache";
 import getConfig from "next/config";
+
+import cache from "src/cache";
+import { getTestData } from "src/data";
+import { GetWeatherApi, GetDistance } from "src/fetcher";
+import { scrap } from "src/scrapper";
+
+import type { NextApiRequest, NextApiResponse } from "next";
 
 type CachedNextApiRequest = NextApiRequest & { cache: any };
 
@@ -40,7 +42,7 @@ export async function handler(
   const startLong = 15.439037603079603;
   if (dev) {
     const lat = 47.067936905855106;
-    const long = 14.033647742358444;
+    const long = 14.033647742358;
     const weatherReq = await GetWeatherApi(lat, long);
     const distanceRes = await GetDistance(startLat, startLong, lat, long);
     const distance =

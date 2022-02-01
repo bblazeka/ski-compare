@@ -4,9 +4,12 @@ export function mapToPieData(distribution: any[]): TPieData[] {
   return distribution.map((el) => {
     return {
       ...el,
-      catName: CATEGORIES.find(
-        (cat: TCategory) => cat.key?.toLowerCase() === el.name
-      )?.name,
+      catName:
+        el.catName !== undefined
+          ? el.catName
+          : CATEGORIES.find(
+              (cat: TCategory) => cat.key?.toLowerCase() === el.name
+            )?.name,
       id: el.name,
     };
   });

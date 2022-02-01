@@ -42,7 +42,12 @@ export default function Dashboard() {
         .filter((el) => ["easy", "medium", "hard"].includes(el.name)),
     [currentSkiResort]
   );
-
+  const liftDistribution = currentSkiResort.slopes.lifts.map((lift) => ({
+    id: lift.name,
+    name: lift.name,
+    catName: lift.name,
+    value: lift.value,
+  }));
   return (
     <div className={classes.dashboard}>
       <CompareChart />
@@ -67,7 +72,7 @@ export default function Dashboard() {
         <div className={classes.smallGraph}>
           <CustomPieChart
             title={t("SKI_LIFT_OVERVIEW")}
-            distribution={currentSkiResort.slopes.lifts}
+            distribution={liftDistribution}
           />
         </div>
       </div>
